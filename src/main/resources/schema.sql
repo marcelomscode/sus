@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS  unidade(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
