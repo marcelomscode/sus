@@ -29,10 +29,10 @@ public class UnidadeRepositoryImpl implements UnidadeDomainRepository {
     }
 
     @Override
-    public List<UnidadeDomain> BuscaTodasUnidades() {
+    public List<UnidadeDomain> buscaTodasUnidades() {
 
         List<UnidadePersistence> unidades = repository.findAll();
-
+        log.info("Listando todas as [" + unidades.size() +"] unidades." );
         return unidades.stream().map(UnidadePersistenceMapper::toDomain)
                 .toList();
     }
@@ -49,6 +49,22 @@ public class UnidadeRepositoryImpl implements UnidadeDomainRepository {
     public void deleteById(Long id) {
         repository.deleteById(id);
         log.info("Unidade [{}] deletada com sucesso.", id);
+    }
+
+    @Override
+    public UnidadeDomain update(UnidadeDomain unidadeDomain) {
+
+        var unidade = repository.findById(unidadeDomain.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Unidade não encontrada com id: " + unidadeDomain.getId()));
+
+        unidade.setId(unidadeDomain.getId());
+        unidade.setNome(unidadeDomain.getNome());
+        unidade.setEndereco(unidadeDomain.getEndereco());
+        unidade.setAtivo(unidadeDomain.isAtivo());
+        var unidadeAtualizada = repository.save(unidade);
+        log.info("Unidade atualizada com sucesso.");
+
+        return UnidadePersistenceMapper.toDomain(unidadeAtualizada);
     }
 
 }

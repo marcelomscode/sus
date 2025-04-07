@@ -14,15 +14,17 @@ public class UnidadePersistenceMapper {
         return new fiap.sus.infrastructure.persistence.UnidadePersistence(
                 unidadeDomain.getId(),
                 unidadeDomain.getNome(),
-                unidadeDomain.getEndereco()
+                unidadeDomain.getEndereco(),
+                unidadeDomain.isAtivo()
         );
     }
 
-    public static UnidadeDomain toDomain(fiap.sus.infrastructure.persistence.UnidadePersistence unidadePersistence) {
+    public static UnidadeDomain toDomain(UnidadePersistence unidadePersistence) {
         return new fiap.sus.domain.model.UnidadeDomain(
                 unidadePersistence.getId(),
                 unidadePersistence.getNome(),
-                unidadePersistence.getEndereco()
+                unidadePersistence.getEndereco(),
+                unidadePersistence.isAtivo()
         );
     }
 

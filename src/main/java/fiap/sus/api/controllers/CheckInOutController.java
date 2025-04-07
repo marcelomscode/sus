@@ -1,22 +1,17 @@
 package fiap.sus.api.controllers;
 
-import fiap.sus.application.usecases.CheckInUseCase;
-import fiap.sus.application.usecases.CheckOutUseCase;
+import fiap.sus.application.usecases.checkinout.CheckInOutUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/checkinout")
+@RequiredArgsConstructor
 public class CheckInOutController {
 
-    private final CheckInUseCase checkInUseCase;
-    private final CheckOutUseCase checkOutUseCase;
-
-    public CheckInOutController(CheckInUseCase checkInUseCase, CheckOutUseCase checkOutUseCase) {
-        this.checkInUseCase = checkInUseCase;
-        this.checkOutUseCase = checkOutUseCase;
-    }
+    private final CheckInOutUseCase checkInUseCase;
 
     @PutMapping("/checkin/{idMedico}/{idUnidade}")
     public void checkIn() {

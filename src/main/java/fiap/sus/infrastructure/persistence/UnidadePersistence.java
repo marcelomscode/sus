@@ -22,5 +22,6 @@ public class UnidadePersistence {
     @Column(nullable = false, length = 30)
     private String nome;
     private String endereco;
+    private boolean ativo;
 
 }

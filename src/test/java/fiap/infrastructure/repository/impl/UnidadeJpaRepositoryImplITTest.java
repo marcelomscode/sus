@@ -29,7 +29,7 @@ class UnidadeJpaRepositoryImplITTest {
         @Test
         void deveSalvarUnidadeComSucesso() {
             // Arrange
-            UnidadeDomain unidadeDomain = new UnidadeDomain(null, "Hospital Central", "Rua Principal, 123");
+            UnidadeDomain unidadeDomain = new UnidadeDomain(null, "Hospital Central", "Rua Principal, 123", true);
 
             // Act
             repository.save(unidadeDomain);

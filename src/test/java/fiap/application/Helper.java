@@ -16,7 +16,7 @@ public class Helper {
 
 
     public static UnidadeDomain getUnidade() {
-        return new UnidadeDomain(null, "Jaçanã", "Rua dos Três Irmãos, 123");
+        return new UnidadeDomain(null, "Jaçanã", "Rua dos Três Irmãos, 123", true);
     }
 
 

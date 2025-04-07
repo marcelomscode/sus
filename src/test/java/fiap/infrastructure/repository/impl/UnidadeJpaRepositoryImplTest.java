@@ -55,7 +55,7 @@ class UnidadeJpaRepositoryImplTest {
 
         when(repository.findAll()).thenReturn(List.of(unidade));
 
-        var result = unidadeRepositoryImpl.BuscaTodasUnidades();
+        var result = unidadeRepositoryImpl.buscaTodasUnidades();
 
         assertThat(result).isNotNull();
         assertThat(result).hasSize(1);

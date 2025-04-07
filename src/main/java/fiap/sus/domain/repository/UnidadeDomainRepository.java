@@ -9,11 +9,13 @@ public interface UnidadeDomainRepository {
 
     void save(UnidadeDomain persistence);
 
-    List<UnidadeDomain> BuscaTodasUnidades();
+    List<UnidadeDomain> buscaTodasUnidades();
 
     Optional<UnidadeDomain> findById(long id);
 
     void deleteById(Long id);
+
+    UnidadeDomain update(UnidadeDomain unidadeDomain);
 
 
 }

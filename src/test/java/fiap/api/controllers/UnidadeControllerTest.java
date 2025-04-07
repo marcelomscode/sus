@@ -4,9 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fiap.application.Helper;
 import fiap.sus.api.controllers.UnidadeController;
-import fiap.sus.application.usecases.BuscaUnidadePorIdUseCase;
-import fiap.sus.application.usecases.DeletaUnidadeUseCase;
-import fiap.sus.application.usecases.SalvaUnidadeUseCase;
+import fiap.sus.application.usecases.unidades.AtualizaUnidadeUseCase;
+import fiap.sus.application.usecases.unidades.BuscaUnidadesUseCase;
+import fiap.sus.application.usecases.unidades.DeletaUnidadeUseCase;
+import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.model.UnidadeDomain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,10 +36,13 @@ public class UnidadeControllerTest {
     private SalvaUnidadeUseCase salvaUnidadeUseCase;
 
     @Mock
-    private BuscaUnidadePorIdUseCase buscaUnidadePorIdUseCase;
+    private BuscaUnidadesUseCase buscaUnidadePorIdUseCase;
 
     @Mock
     private DeletaUnidadeUseCase deletaUnidadeUseCase;
+
+    @Mock
+    private AtualizaUnidadeUseCase atualizaUnidadeUseCase;
 
 
     AutoCloseable mock;
@@ -46,7 +50,10 @@ public class UnidadeControllerTest {
     @BeforeEach
     void setUp() {
         mock = org.mockito.MockitoAnnotations.openMocks(this);
-        UnidadeController controller = new UnidadeController(salvaUnidadeUseCase, buscaUnidadePorIdUseCase, deletaUnidadeUseCase);
+        UnidadeController controller = new UnidadeController(salvaUnidadeUseCase,
+                buscaUnidadePorIdUseCase,
+                deletaUnidadeUseCase,
+                atualizaUnidadeUseCase);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -96,10 +103,10 @@ public class UnidadeControllerTest {
             when(buscaUnidadePorIdUseCase.findById(any(Long.class))).thenReturn(Optional.of(Helper.getUnidade()));
 
             mockMvc.perform(
-                get("/api/unidades/{id}", 1L)
-               .contentType("application/json")
-            )
-            .andExpect(status().isOk());
+                            get("/api/unidades/{id}", 1L)
+                                    .contentType("application/json")
+                    )
+                    .andExpect(status().isOk());
 
             verify(buscaUnidadePorIdUseCase, times(1)).findById(anyLong());
         }
@@ -107,43 +114,45 @@ public class UnidadeControllerTest {
         @Test
         void deveGerarExecaoQuandoIdNaoEncontrado() throws Exception {
 
-            when(buscaUnidadePorIdUseCase.findById(1L)).thenThrow(RuntimeException.class);
+            fail("Not yet implemented");
 
-            mockMvc.perform(
-                    get("/api/unidades/{id}", 1L)
-                            .contentType("application/json")
-            ).andExpect(status().isNotFound());
-
+//            when(buscaUnidadePorIdUseCase.findById(1L)).thenThrow(RuntimeException.class);
+//
+//            mockMvc.perform(
+//                    get("/api/unidades/{id}", 1L)
+//                            .contentType("application/json")
+//            ).andExpect(status().isNotFound());
+//
+//        }
         }
     }
 
+        @Nested
+        class DeveListarUnidades {
 
-    @Nested
-    class DeveListarUnidades {
+            @Test
+            void deveBuscarUnidadePorNome() {
+                fail("Not yet implemented");
+            }
 
-        @Test
-        void deveBuscarUnidadePorNome() {
-            fail("Not yet implemented");
+            @Test
+            void deveBuscarUnidadePorIdVerificandoParametrosPassados() {
+                fail("Not yet implemented");
+            }
+
+            @Test
+            void deveRetornarListaDeUnidades() {
+                fail("Not yet implemented");
+            }
         }
 
-        @Test
-        void deveBuscarUnidadePorIdVerificandoParametrosPassados() {
-            fail("Not yet implemented");
+        public static String asJsonString(final Object obj) {
+            try {
+                return new ObjectMapper().writeValueAsString(obj);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        @Test
-        void deveRetornarListaDeUnidades() {
-            fail("Not yet implemented");
-        }
+
     }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-}

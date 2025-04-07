@@ -1,4 +1,4 @@
-package fiap.sus.application.usecases;
+package fiap.sus.application.usecases.unidades;
 
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.domain.repository.UnidadeDomainRepository;

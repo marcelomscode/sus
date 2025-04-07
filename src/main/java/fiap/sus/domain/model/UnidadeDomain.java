@@ -10,5 +10,6 @@ public class UnidadeDomain {
     private Long id;
     private String nome;
     private String endereco;
+    private boolean ativo;
 
 }

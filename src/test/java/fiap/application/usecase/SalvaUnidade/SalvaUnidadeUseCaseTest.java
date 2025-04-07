@@ -1,6 +1,6 @@
 package fiap.application.usecase.SalvaUnidade;
 
-import fiap.sus.application.usecases.SalvaUnidadeUseCase;
+import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.repository.UnidadeDomainRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

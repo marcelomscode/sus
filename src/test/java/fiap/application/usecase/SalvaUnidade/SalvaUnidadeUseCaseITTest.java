@@ -1,6 +1,6 @@
 package fiap.application.usecase.SalvaUnidade;
 
-import fiap.sus.application.usecases.SalvaUnidadeUseCase;
+import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.infrastructure.repository.impl.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
@@ -44,7 +44,7 @@ public class SalvaUnidadeUseCaseITTest {
         @Test
         void deveLancarExcecaoAoSalvarUnidadeNomeNull() {
 
-            var unidade = new UnidadeDomain(1L, null, "Rua dos Três Irmãos, 123");
+            var unidade = new UnidadeDomain(1L, null, "Rua dos Três Irmãos, 123", true);
 
             assertThatThrownBy(
                     () -> salvaUnidadeUseCase.save(unidade)
@@ -55,7 +55,7 @@ public class SalvaUnidadeUseCaseITTest {
         @Test
         void deveLancarExcecaoAoSalvarUnidadeNomeVazio() {
 
-            var unidade = new UnidadeDomain(1L, "", "Rua dos Três Irmãos, 123");
+            var unidade = new UnidadeDomain(1L, "", "Rua dos Três Irmãos, 123", true);
 
             assertThatThrownBy(
                     () -> salvaUnidadeUseCase.save(unidade)
