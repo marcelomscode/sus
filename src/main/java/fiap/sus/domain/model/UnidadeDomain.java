@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class UnidadeDomain {
 
-    private Integer id;
+    private Long id;
     private String nome;
     private String endereco;
 

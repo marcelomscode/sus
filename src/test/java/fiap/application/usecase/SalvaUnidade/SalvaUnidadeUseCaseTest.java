@@ -1,15 +1,16 @@
-package fiap.application.usecase;
+package fiap.application.usecase.SalvaUnidade;
 
 import fiap.sus.application.usecases.SalvaUnidadeUseCase;
-import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.domain.repository.UnidadeDomainRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static fiap.application.Helper.getUnidade;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -33,18 +34,21 @@ class SalvaUnidadeUseCaseTest {
         openMocks.close();
     }
 
+    @Nested
+    class SalvaUnidade {
+        @Test
+        void deveSalvarUnidadeUsecase() {
+            // Arrange
+            var unidade = getUnidade();
 
-    @Test
-    void deveSalvarUnidadeUsecase() {
-        // Arrange
-        UnidadeDomain unidade = new UnidadeDomain(null, "Jaçanã", "Rua dos Três Irmãos, 123");
+            // Act
+            salvaUnidadeuseCase.save(unidade);
 
-        // Act
-        salvaUnidadeuseCase.save(unidade);
-
-        // Assert
-        verify(repository, times(1)).save(unidade);
+            // Assert
+            verify(repository, times(1)).save(unidade);
+        }
     }
+
 
 
 }
