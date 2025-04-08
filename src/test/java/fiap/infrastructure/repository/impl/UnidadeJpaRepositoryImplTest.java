@@ -1,7 +1,7 @@
 package fiap.infrastructure.repository.impl;
 
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
-import fiap.sus.infrastructure.repository.impl.UnidadeRepositoryImpl;
+import fiap.sus.infrastructure.repository.impl.unidade.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,8 +57,7 @@ class UnidadeJpaRepositoryImplTest {
 
         var result = unidadeRepositoryImpl.buscaTodasUnidades();
 
-        assertThat(result).isNotNull();
-        assertThat(result).hasSize(1);
+        assertThat(result).isNotNull().hasSize(1);
 
     }
 

@@ -1,23 +1,28 @@
-package fiap.sus.domain.model;
+package fiap.sus.infrastructure.persistence;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@Entity
+@Table(name = "checkinout")
 @Builder
 @AllArgsConstructor
-public class CheckInOutDomain {
+@NoArgsConstructor
+public class CheckInOutPersistence {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private Long idMedico;
-    @Column(nullable = false)
     private Long idUnidade;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
+
 
 }

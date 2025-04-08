@@ -3,7 +3,7 @@ package fiap.infrastructure.repository.impl;
 
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
-import fiap.sus.infrastructure.repository.impl.UnidadeRepositoryImpl;
+import fiap.sus.infrastructure.repository.impl.unidade.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

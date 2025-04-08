@@ -1,4 +1,4 @@
-package fiap.sus.infrastructure.repository.impl;
+package fiap.sus.infrastructure.repository.impl.unidade;
 
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.domain.repository.UnidadeDomainRepository;

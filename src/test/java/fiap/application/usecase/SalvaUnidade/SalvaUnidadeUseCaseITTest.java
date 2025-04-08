@@ -2,7 +2,7 @@ package fiap.application.usecase.SalvaUnidade;
 
 import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.model.UnidadeDomain;
-import fiap.sus.infrastructure.repository.impl.UnidadeRepositoryImpl;
+import fiap.sus.infrastructure.repository.impl.unidade.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
