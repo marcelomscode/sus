@@ -3,7 +3,7 @@ package fiap.sus.infrastructure.repository.impl.especialidades;
 import fiap.sus.domain.exceptions.EspecialidadeException;
 import fiap.sus.domain.model.EspecialidadesDomain;
 import fiap.sus.domain.repository.especialidade.BuscaEspecialidadesRepository;
-import fiap.sus.infrastructure.mappers.EspecialidadePersistenceMapperOld;
+import fiap.sus.infrastructure.mappers.EspecialidadePersistenceMapper;
 import fiap.sus.infrastructure.repository.jpa.EspecialidadesJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class BuscaEspecialidadesRepositoryImpl implements BuscaEspecialidadesRep
             log.error("Nenhuma especialidade encontrada");
             throw new EspecialidadeException("Nenhuma especialidade encontrada", HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
         }
-        return especialidades.stream().map(EspecialidadePersistenceMapperOld::toDomain).toList();
+        return especialidades.stream().map(EspecialidadePersistenceMapper::toDomain).toList();
 
     }
 
@@ -42,7 +42,7 @@ public class BuscaEspecialidadesRepositoryImpl implements BuscaEspecialidadesRep
             log.error("Especialidade não encontrada: {}", id);
             throw new EspecialidadeException("Especialidade não encontrada: "+ id, HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
         }
-        return EspecialidadePersistenceMapperOld.toDomain(especialidade.get());
+        return EspecialidadePersistenceMapper.toDomain(especialidade.get());
     }
 
     @Override

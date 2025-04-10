@@ -30,4 +30,7 @@ public interface CheckInOutJpaRepository extends JpaRepository<CheckInOutPersist
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_unidade = ?1 AND data like ?2%")
     List<CheckInOutPersistence> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate data);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_unidade = ?1 AND data like ?2% AND check_out is null")
+    List<CheckInOutPersistence> buscaMedicosComCheckInEmUmaUnidade(long idUnidade, LocalDate data);
+
 }

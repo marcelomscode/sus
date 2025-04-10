@@ -36,4 +36,9 @@ public class BuscaCheckInOutUseCase {
         return checkInOutDomainRepository.buscaCheckInOutPorUnidadeEData(idUnidade, dataHora);
     }
 
+    public List<CheckInOutDomain> buscaMedicosComCheckInEmUmaUnidade(long idUnidade, LocalDate data) {
+        return checkInOutDomainRepository.buscaMedicosComCheckInEmUmaUnidade(idUnidade, data);
+    }
+
+
 }

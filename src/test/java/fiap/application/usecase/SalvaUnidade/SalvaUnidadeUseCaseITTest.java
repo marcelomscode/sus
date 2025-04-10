@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @Import({SalvaUnidadeUseCase.class, UnidadeRepositoryImpl.class})
-public class SalvaUnidadeUseCaseITTest {
+class SalvaUnidadeUseCaseITTest {
 
     @Autowired
     private SalvaUnidadeUseCase salvaUnidadeUseCase;

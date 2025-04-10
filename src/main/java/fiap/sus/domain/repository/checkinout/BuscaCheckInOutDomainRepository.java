@@ -17,4 +17,5 @@ public interface BuscaCheckInOutDomainRepository {
 
     List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate dataHora);
 
+    List<CheckInOutDomain> buscaMedicosComCheckInEmUmaUnidade(long idUnidade, LocalDate data);
 }

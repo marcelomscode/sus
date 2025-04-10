@@ -2,17 +2,24 @@ package fiap.sus.infrastructure.mappers;
 
 import fiap.sus.domain.model.EspecialidadesDomain;
 import fiap.sus.infrastructure.persistence.EspecialidadesPersistence;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-import java.util.Set;
+public class EspecialidadePersistenceMapper {
 
-@Mapper(componentModel = "spring")
-public interface EspecialidadePersistenceMapper {
+    public static EspecialidadesDomain toDomain(EspecialidadesPersistence especialidadePersistence) {
+        return new EspecialidadesDomain(
+                especialidadePersistence.getId(),
+                especialidadePersistence.getNome(),
+                especialidadePersistence.getDescricao()
+        );
+    }
 
-    EspecialidadePersistenceMapper INSTANCE = Mappers.getMapper(EspecialidadePersistenceMapper.class);
-
-    Set<EspecialidadesPersistence> toPersistence(Set<EspecialidadesDomain> domain);
+    public static EspecialidadesPersistence toPersistence(EspecialidadesDomain especialidadesDomain) {
+        return new EspecialidadesPersistence(
+                especialidadesDomain.getId(),
+                especialidadesDomain.getNome(),
+                especialidadesDomain.getDescricao()
+        );
+    }
 
 
 }

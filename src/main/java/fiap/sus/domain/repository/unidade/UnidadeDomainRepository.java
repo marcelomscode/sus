@@ -17,5 +17,4 @@ public interface UnidadeDomainRepository {
 
     UnidadeDomain update(UnidadeDomain unidadeDomain);
 
-
 }

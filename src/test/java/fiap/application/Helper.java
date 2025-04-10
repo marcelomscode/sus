@@ -2,6 +2,7 @@ package fiap.application;
 
 import fiap.sus.domain.model.EspecialidadesDomain;
 import fiap.sus.domain.model.UnidadeDomain;
+import fiap.sus.infrastructure.mappers.UnidadePersistenceMapper;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
 
 import java.util.Set;
@@ -21,8 +22,8 @@ public class Helper {
     public static UnidadeDomain getUnidade() {
 
         var especialidades = Set.of(
-                new EspecialidadesDomain(1L, "Cardiologia", "Coração"),
-                new EspecialidadesDomain(2L, "Pediatria", "Crianças")
+                new EspecialidadesDomain(1L, "Cardiologia", "Cardiologista"),
+                new EspecialidadesDomain(2L, "Neurologia", "Neurologista")
         );
 
         return new UnidadeDomain(null, "Jaçanã", "Rua dos Três Irmãos, 123", especialidades,true);
@@ -34,6 +35,8 @@ public class Helper {
                 .builder()
                 .nome(unidade.getNome())
                 .endereco(unidade.getEndereco())
+                .especialidades(UnidadePersistenceMapper.toPersistenceList(unidade.getEspecialidades()))
+                .ativo(unidade.isAtivo())
                 .build();
     }
 

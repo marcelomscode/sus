@@ -1,6 +1,5 @@
 package fiap.infrastructure.repository.impl;
 
-import fiap.sus.infrastructure.persistence.UnidadePersistence;
 import fiap.sus.infrastructure.repository.impl.unidade.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -15,7 +14,10 @@ import java.util.List;
 import static fiap.application.Helper.getUnidade;
 import static fiap.application.Helper.getUnidadePersistence;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 class UnidadeJpaRepositoryImplTest {
@@ -42,7 +44,7 @@ class UnidadeJpaRepositoryImplTest {
     void deveSalvarUnidadePersistence() {
         var unidade = getUnidadePersistence(getUnidade());
 
-        when(repository.save(any(UnidadePersistence.class))).thenReturn(unidade);
+        when(repository.save(unidade)).thenReturn(unidade);
 
         unidadeRepositoryImpl.save(getUnidade());
 

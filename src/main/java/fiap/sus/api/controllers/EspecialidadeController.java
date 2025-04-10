@@ -8,7 +8,6 @@ import fiap.sus.application.usecases.especialidades.AtualizaEspecialidadeUseCase
 import fiap.sus.application.usecases.especialidades.BuscaEspecialidadesUseCase;
 import fiap.sus.application.usecases.especialidades.SalvaEspecialidadeUseCase;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @Slf4j
@@ -50,10 +48,7 @@ public class EspecialidadeController {
     @Operation(summary = "Salvar nova especialidade.", description = "Opção para salvar uma nova Especialidade para ser usada nas Unidades.")
     @ApiResponse(responseCode = "200", description = "Especialidade salva com sucesso")
     @Schema(name = "NovaEspecialidadeRequest", implementation = NovaEspecialidadeRequest.class)
-    public ResponseEntity<String> salvaEspecialidade(
-            @Parameter(description = "Id de um entregador ja cadastrado para entregas."
-                    , required = true)
-            @RequestBody NovaEspecialidadeRequest especialidadeRequest ) {
+    public ResponseEntity<String> salvaEspecialidade(@RequestBody NovaEspecialidadeRequest especialidadeRequest ) {
 
         salvaEspecialidadeUseCase.save(EspecialidadeMapperOld.toDomainNovaEspecialidade(especialidadeRequest));
         log.info("FIM salva especialidade: {}", especialidadeRequest);

@@ -4,7 +4,6 @@ import fiap.sus.api.dto.especialidade.EspecialidadeUnidadeRequest;
 import fiap.sus.domain.model.EspecialidadesDomain;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
 import java.util.Set;
 
 @Mapper(componentModel = "spring")

@@ -19,7 +19,7 @@ import java.util.Objects;
 public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepository {
 
     private final CheckInOutJpaRepository checkInOutJpaRepository;
-    private final String CHECKINOUT_MEDICO_UNIDADE= "Buscando check-in/check-out do médico na unidade [{}]";
+    private static final String CHECKINOUT_MEDICO_UNIDADE= "Buscando check-in/check-out do médico na unidade [{}]";
 
     @Autowired
     public BuscaCheckInOutRepositoryImpl(CheckInOutJpaRepository checkInOutJpaRepository) {
@@ -82,16 +82,29 @@ public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepos
     }
 
     @Override
-    public List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate dataHora) {
+    public List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate data) {
 
-        log.info(CHECKINOUT_MEDICO_UNIDADE, dataHora);
-        var checkInOut = checkInOutJpaRepository.buscaCheckInOutPorUnidadeEData(idUnidade, dataHora);
+        log.info(CHECKINOUT_MEDICO_UNIDADE, data);
+        var checkInOut = checkInOutJpaRepository.buscaCheckInOutPorUnidadeEData(idUnidade, data);
         if (Objects.isNull(checkInOut)) {
-            throw new CheckOutInException("Dados de CheckIn na unidade " + dataHora + " não econtrados, verifique os dados e tente novamente.",
+            throw new CheckOutInException("Dados de CheckIn na unidade "+idUnidade+
+                    " e na data " + data + " não econtrados, verifique os dados e tente novamente.",
                     HttpStatus.BAD_REQUEST, 400);
         }
 
         return checkInOut.stream().map(CheckinOutPersistenceMapper::toCheckInDomain).toList();
+    }
+
+    @Override
+    public List<CheckInOutDomain> buscaMedicosComCheckInEmUmaUnidade(long idUnidade, LocalDate data) {
+
+        var response = checkInOutJpaRepository.buscaMedicosComCheckInEmUmaUnidade(idUnidade, data);
+        if(response.isEmpty()) {
+            throw new CheckOutInException("No momento não temos médicos atendendo na unidade " + idUnidade
+                    + " tente novamente mais tarde.", HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
+        }
+
+        return response.stream().map(CheckinOutPersistenceMapper::toCheckInDomain).toList();
     }
 
 }
