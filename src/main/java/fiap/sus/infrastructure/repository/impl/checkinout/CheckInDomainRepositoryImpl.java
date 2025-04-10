@@ -41,6 +41,7 @@ public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
         log.info("Inserindo no CheckIn a data e hora atual  do sistema " + LocalDateTime.now() + " para o médico [{}] na unidade [{}]",
                 checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
         checkIn.setCheckIn(LocalDateTime.now());
+        checkIn.setData(LocalDateTime.now());
 
         checkInOutRepository.save(checkIn);
 

@@ -2,7 +2,10 @@ package fiap.sus.infrastructure.exceptionhandler;
 
 import fiap.sus.domain.exceptions.CheckOutInException;
 import fiap.sus.domain.exceptions.DominioException;
+import fiap.sus.domain.exceptions.EspecialidadeException;
 import fiap.sus.domain.exceptions.UnidadeException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,8 +26,23 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), ex.getCodigo(), errors));
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<DominioException> dataIntegrityViolationException(DataIntegrityViolationException ex) {
+        this.limparErrors();
+        errors.put("erro", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new DominioException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), errors));
+    }
+
     @ExceptionHandler(UnidadeException.class)
     public ResponseEntity<DominioException> unidadeException(UnidadeException ex) {
+        this.limparErrors();
+        errors.put("erro", ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), ex.getCodigoStatus(), errors));
+    }
+
+    @ExceptionHandler(EspecialidadeException.class)
+    public ResponseEntity<DominioException> especialidadeException(EspecialidadeException ex) {
         this.limparErrors();
         errors.put("erro", ex.getMessage());
         return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), ex.getCodigoStatus(), errors));

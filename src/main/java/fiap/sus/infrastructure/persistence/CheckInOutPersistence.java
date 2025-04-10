@@ -23,6 +23,7 @@ public class CheckInOutPersistence {
     private Long idUnidade;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
+    private LocalDateTime data;
 
 
 }

@@ -1,7 +1,8 @@
 package fiap.sus.infrastructure.repository.impl.unidade;
 
 import fiap.sus.domain.model.UnidadeDomain;
-import fiap.sus.domain.repository.UnidadeDomainRepository;
+import fiap.sus.domain.repository.unidade.UnidadeDomainRepository;
+import fiap.sus.infrastructure.mappers.EspecialidadePersistenceMapper;
 import fiap.sus.infrastructure.mappers.UnidadePersistenceMapper;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
@@ -18,13 +19,18 @@ import java.util.Optional;
 public class UnidadeRepositoryImpl implements UnidadeDomainRepository {
 
     private final UnidadeJpaRepository repository;
+    private final UnidadePersistenceMapper mapper;
+    private final EspecialidadePersistenceMapper especialidadeMapper;
 
     @Override
     public void save(UnidadeDomain persistence) {
+
         repository.save(UnidadePersistence
                 .builder()
                 .nome(persistence.getNome())
                 .endereco(persistence.getEndereco())
+                .especialidades(especialidadeMapper.toPersistence(persistence.getEspecialidades()))
+                .ativo(true)
                 .build());
     }
 
@@ -32,15 +38,15 @@ public class UnidadeRepositoryImpl implements UnidadeDomainRepository {
     public List<UnidadeDomain> buscaTodasUnidades() {
 
         List<UnidadePersistence> unidades = repository.findAll();
-        log.info("Listando todas as [" + unidades.size() +"] unidades." );
-        return unidades.stream().map(UnidadePersistenceMapper::toDomain)
+        log.info("Listando todas as [" + unidades.size() + "] unidades.");
+        return unidades.stream().map(mapper::toDomain)
                 .toList();
     }
 
     @Override
     public Optional<UnidadeDomain> findById(long id) {
 
-        var unidade = repository.findById(id).map(UnidadePersistenceMapper::toDomain);
+        var unidade = repository.findById(id).map(mapper::toDomain);
         log.info("Unidade com id [{}] encontrada.", id);
         return unidade;
     }
@@ -64,7 +70,7 @@ public class UnidadeRepositoryImpl implements UnidadeDomainRepository {
         var unidadeAtualizada = repository.save(unidade);
         log.info("Unidade atualizada com sucesso.");
 
-        return UnidadePersistenceMapper.toDomain(unidadeAtualizada);
+        return mapper.toDomain(unidadeAtualizada);
     }
 
 }

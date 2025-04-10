@@ -45,12 +45,12 @@ public class CheckOutDomainRepositoryImpl implements CheckOutDomainRepository {
         if (Objects.isNull(checkInExistente)) {
             var mensagem = "O médico [{}] não efetuou o check-in hoje na unidade [{}]";
             log.warn(mensagem, checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
-            throw new CheckOutInException("O médico não efetuou o check-in hoje na unidade: " , HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+            throw new CheckOutInException("O médico não efetuou o check-in hoje na unidade: "
+                    + checkInOutDomain.getIdUnidade(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
         }
 
         log.info("Inserindo no CheckOut a data e hora atual  do sistema " + LocalDateTime.now() + " para o médico [{}] na unidade [{}]",
                 checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
-
         checkInExistente.setCheckOut(LocalDateTime.now());
 
         checkInOutRepository.save(checkInExistente);

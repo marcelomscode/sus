@@ -5,7 +5,7 @@ import fiap.sus.domain.repository.checkinout.BuscaCheckInOutDomainRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,8 +16,8 @@ public class BuscaCheckInOutUseCase {
 
     //Buscar Informações do médico no MS de cadastro de medicos
 
-    public List<CheckInOutDomain> buscaCheckInOutPorId(long idMedico, long idUnidade) {
-        return List.of(checkInOutDomainRepository.buscaCheckInOutPorId(idMedico, idUnidade));
+    public List<CheckInOutDomain> buscaCheckInOutPorMedicoPorUnidade(long idMedico, long idUnidade) {
+        return List.of(checkInOutDomainRepository.buscaCheckInOutPorMedicoPorUnidade(idMedico, idUnidade));
     }
 
     public List<CheckInOutDomain> buscaCheckInOutPorUnidade(long idUnidade) {
@@ -28,8 +28,12 @@ public class BuscaCheckInOutUseCase {
         return checkInOutDomainRepository.buscaCheckInOutPorMedico(idMedico);
     }
 
-    public List<CheckInOutDomain> buscaCheckInOutPorData(LocalDateTime dataHora) {
-        return checkInOutDomainRepository.buscaCheckInOutPorData(dataHora);
+    public List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(long idMedico, long idUnidade, LocalDate data){
+        return checkInOutDomainRepository.buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(idMedico, idUnidade, data);
+    }
+
+    public List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate dataHora) {
+        return checkInOutDomainRepository.buscaCheckInOutPorUnidadeEData(idUnidade, dataHora);
     }
 
 }

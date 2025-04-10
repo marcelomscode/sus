@@ -12,9 +12,12 @@ public class CheckinOutPersistenceMapper {
     public static CheckInOutDomain toCheckInDomain(CheckInOutPersistence checkinOutPersistence) {
         return CheckInOutDomain
                 .builder()
+                .id(checkinOutPersistence.getId())
                 .idUnidade(checkinOutPersistence.getIdUnidade())
                 .idMedico(checkinOutPersistence.getIdMedico())
                 .checkIn(checkinOutPersistence.getCheckIn())
+                .checkOut(checkinOutPersistence.getCheckOut())
+                .data(checkinOutPersistence.getData())
                 .build();
     }
 

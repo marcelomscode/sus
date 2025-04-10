@@ -1,7 +1,7 @@
 package fiap.application.usecase.SalvaUnidade;
 
 import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
-import fiap.sus.domain.repository.UnidadeDomainRepository;
+import fiap.sus.domain.repository.unidade.UnidadeDomainRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

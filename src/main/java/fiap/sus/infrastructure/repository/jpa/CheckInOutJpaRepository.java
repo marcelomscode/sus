@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface CheckInOutJpaRepository extends JpaRepository<CheckInOutPersistence, Long> {
 
+    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2")
     CheckInOutPersistence findByIdMedicoAndIdUnidade(long idMedico, long idUnidade);
 
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2 AND check_in like ?3%")
@@ -18,5 +20,14 @@ public interface CheckInOutJpaRepository extends JpaRepository<CheckInOutPersist
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2 AND check_out like ?3%")
     CheckInOutPersistence findByIdMedicoAndIdUnidadeAndCheckout(long idMedico, long idUnidade, LocalDate checkIn);
 
+    List<CheckInOutPersistence> findByIdUnidade(long idUnidade);
+
+    List<CheckInOutPersistence> findByIdMedico(long idMedico);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2 AND data like ?3%")
+    List<CheckInOutPersistence> buscaCheckInOutPorMedicoEPorUnidadeEPorData(long idMedico, long idUnidade, LocalDate checkIn);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_unidade = ?1 AND data like ?2%")
+    List<CheckInOutPersistence> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate data);
 
 }

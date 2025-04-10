@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fiap.application.Helper;
 import fiap.sus.api.controllers.UnidadeController;
+import fiap.sus.api.mappers.EspecialidadeDomainMapper;
+import fiap.sus.api.mappers.UnidadeMapper;
 import fiap.sus.application.usecases.unidades.AtualizaUnidadeUseCase;
 import fiap.sus.application.usecases.unidades.BuscaUnidadesUseCase;
 import fiap.sus.application.usecases.unidades.DeletaUnidadeUseCase;
@@ -19,12 +21,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Optional;
 
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UnidadeControllerTest {
@@ -44,6 +49,11 @@ public class UnidadeControllerTest {
     @Mock
     private AtualizaUnidadeUseCase atualizaUnidadeUseCase;
 
+    @Mock
+    private EspecialidadeDomainMapper mapper;
+
+    @Mock
+    private UnidadeMapper unidadeMapper;
 
     AutoCloseable mock;
 
@@ -53,7 +63,10 @@ public class UnidadeControllerTest {
         UnidadeController controller = new UnidadeController(salvaUnidadeUseCase,
                 buscaUnidadePorIdUseCase,
                 deletaUnidadeUseCase,
-                atualizaUnidadeUseCase);
+                atualizaUnidadeUseCase,
+                unidadeMapper,
+                mapper);
+
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

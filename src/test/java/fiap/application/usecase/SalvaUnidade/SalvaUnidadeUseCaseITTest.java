@@ -1,6 +1,7 @@
 package fiap.application.usecase.SalvaUnidade;
 
 import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
+import fiap.sus.domain.model.EspecialidadesDomain;
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.infrastructure.repository.impl.unidade.UnidadeRepositoryImpl;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+
+import java.util.Set;
 
 import static fiap.application.Helper.getUnidade;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +47,12 @@ public class SalvaUnidadeUseCaseITTest {
         @Test
         void deveLancarExcecaoAoSalvarUnidadeNomeNull() {
 
-            var unidade = new UnidadeDomain(1L, null, "Rua dos Três Irmãos, 123", true);
+            var especialidades = Set.of(
+                    new EspecialidadesDomain(1L, "Cardiologia", "Coração"),
+                    new EspecialidadesDomain(2L, "Pediatria", "Crianças")
+            );
+
+            var unidade = new UnidadeDomain(1L, null, "Rua dos Três Irmãos, 123",especialidades, true);
 
             assertThatThrownBy(
                     () -> salvaUnidadeUseCase.save(unidade)
@@ -55,7 +63,13 @@ public class SalvaUnidadeUseCaseITTest {
         @Test
         void deveLancarExcecaoAoSalvarUnidadeNomeVazio() {
 
-            var unidade = new UnidadeDomain(1L, "", "Rua dos Três Irmãos, 123", true);
+            var especialidades = Set.of(
+                    new EspecialidadesDomain(1L, "Cardiologia", "Coração"),
+                    new EspecialidadesDomain(2L, "Pediatria", "Crianças")
+            );
+
+
+            var unidade = new UnidadeDomain(1L, "", "Rua dos Três Irmãos, 123", especialidades,true);
 
             assertThatThrownBy(
                     () -> salvaUnidadeUseCase.save(unidade)

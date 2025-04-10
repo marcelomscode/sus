@@ -1,4 +1,4 @@
-package fiap.sus.domain.repository;
+package fiap.sus.domain.repository.unidade;
 
 import fiap.sus.domain.model.UnidadeDomain;
 

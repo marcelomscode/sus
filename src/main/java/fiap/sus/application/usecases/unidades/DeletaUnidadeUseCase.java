@@ -1,6 +1,6 @@
 package fiap.sus.application.usecases.unidades;
 
-import fiap.sus.domain.repository.UnidadeDomainRepository;
+import fiap.sus.domain.repository.unidade.UnidadeDomainRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
