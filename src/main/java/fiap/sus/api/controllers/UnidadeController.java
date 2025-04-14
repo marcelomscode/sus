@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/unidades")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UnidadeController {
 
     private final SalvaUnidadeUseCase salvaUnidadeUseCase;
@@ -67,6 +69,7 @@ public class UnidadeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Deleta uma unidade por Id. NAO IMPLEMENTADA",description = "Deleta uma unidade por Id.")
     public void deletaUnidade(@PathVariable Long id) {
         log.info("Deletando unidade com id: [{}]", id);
 
@@ -77,6 +80,7 @@ public class UnidadeController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Busca informações de uma unidade por Id.",description = "Busca informações de uma unidade por Id.")
     public ResponseEntity<UnidadeDomain> buscaUnidadePorId(@PathVariable Long id) {
 
         return buscaUnidadesUseCase.findById(id).map(

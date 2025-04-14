@@ -3,6 +3,7 @@ package fiap.sus.infrastructure.exceptionhandler;
 import fiap.sus.domain.exceptions.CheckOutInException;
 import fiap.sus.domain.exceptions.DominioException;
 import fiap.sus.domain.exceptions.EspecialidadeException;
+import fiap.sus.domain.exceptions.MedicoException;
 import fiap.sus.domain.exceptions.UnidadeException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(EspecialidadeException.class)
     public ResponseEntity<DominioException> especialidadeException(EspecialidadeException ex) {
+        this.limparErrors();
+        errors.put("erro", ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), ex.getCodigoStatus(), errors));
+    }
+
+    @ExceptionHandler(MedicoException.class)
+    public ResponseEntity<DominioException> especialidadeException(MedicoException ex) {
         this.limparErrors();
         errors.put("erro", ex.getMessage());
         return ResponseEntity.status(ex.getStatus()).body(new DominioException(ex.getStatus(), ex.getCodigoStatus(), errors));

@@ -7,11 +7,13 @@ import fiap.sus.application.usecases.checkinout.BuscaCheckInOutUseCase;
 import fiap.sus.application.usecases.checkinout.CheckInUseCase;
 import fiap.sus.application.usecases.checkinout.CheckOutUseCase;
 import fiap.sus.uteis.DatasConversao;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/checkinout")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CheckInOutController {
 
     private final CheckInUseCase checkInUseCase;
@@ -34,6 +37,8 @@ public class CheckInOutController {
 
     @PostMapping("/checkin")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Realiza o check-in de um médico na unidade.",
+            description = "Realiza o check-in de um médico na unidade")
     public ResponseEntity<String> checkIn(@RequestBody CheckInOutRequest request) {
         var checkin = CheckInOutMapper.toCheckInDomain(request);
 
@@ -44,6 +49,8 @@ public class CheckInOutController {
 
     @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Realiza o check-out de um médico na unidade.",
+            description = "Realiza o check-out de um médico na unidade")
     public ResponseEntity<String> checkOut(@RequestBody CheckInOutRequest request) {
         var checkOut = CheckInOutMapper.toCheckInDomain(request);
 
@@ -54,6 +61,8 @@ public class CheckInOutController {
 
     @GetMapping("medico-unidade/{idMedico}/{idUnidade}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Busca check-in/check-out por médico e unidade.",
+            description = "Busca check-in/check-out por médico e unidade")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedicoPorUnidade(@PathVariable Long idMedico, @PathVariable Long idUnidade) {
 
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorMedicoPorUnidade(idMedico, idUnidade);
@@ -65,6 +74,8 @@ public class CheckInOutController {
     }
 
     @GetMapping("unidade/{idUnidade}")
+    @Operation(summary = "Busca todos os check-in/check-out feitos em uma unidade.",
+            description = "Busca todos check-in/check-out feitos em uma unidade")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorUnidade(@PathVariable Long idUnidade) {
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorUnidade(idUnidade);
 
@@ -75,6 +86,8 @@ public class CheckInOutController {
     }
 
     @GetMapping("medico/{idMedico}")
+    @Operation(summary = "Busca todos os check-in/check-out feitos por um médico.",
+            description = "Busca todos check-in/check-out feitos por um médico")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedico(@PathVariable long idMedico) {
 
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorMedico(idMedico);
@@ -87,6 +100,8 @@ public class CheckInOutController {
     }
 
     @GetMapping("unidade/{idUnidade}/medico/{idMedico}/data")
+    @Operation(summary = "Busca todos check-in/check-out por médico, unidade e data.",
+            description = "Busca todos check-in/check-out por médico, unidade e data")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(
             @PathVariable long idMedico, @PathVariable long idUnidade, @PathParam("data") String data) {
 
@@ -98,6 +113,8 @@ public class CheckInOutController {
     }
 
     @GetMapping("unidade/{idUnidade}/data")
+    @Operation(summary = "Busca todos check-in/check-out de todos os médicos por unidade e data.",
+            description = "Busca todos check-in/check-out de todos os médicos por unidade e data")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorData(@PathVariable long idUnidade,
                                                                            @PathParam("data") String data) {
 

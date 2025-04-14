@@ -7,7 +7,7 @@ WORKDIR /app
 ENV SPRING_PROFILES_ACTIVE=dev
 
 # Copiar o arquivo JAR para o container
-COPY logistics-0.0.1-SNAPSHOT.jar app.jar
+COPY target/sus-0.0.1-SNAPSHOT.jar app.jar
 
 ENV SPRING_PROFILES_ACTIVE=prod
 
