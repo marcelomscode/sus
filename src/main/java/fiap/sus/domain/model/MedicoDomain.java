@@ -8,8 +8,8 @@ import lombok.Data;
 public class MedicoDomain {
 
     private Long id;
+    private String UUID;
     private String nome;
-    private String especialidade;
     private String crm;
 
 }

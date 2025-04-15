@@ -28,8 +28,17 @@ public class BuscaCheckInOutUseCase {
         return checkInOutDomainRepository.buscaCheckInOutPorMedico(idMedico);
     }
 
+    public List<CheckInOutDomain> buscaCheckInOutPorMedico(String idMedico) {
+        return checkInOutDomainRepository.buscaCheckInOutPorMedico(idMedico);
+    }
+
+
     public List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(long idMedico, long idUnidade, LocalDate data){
         return checkInOutDomainRepository.buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(idMedico, idUnidade, data);
+    }
+
+    public List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(String uuid, long idUnidade, LocalDate data){
+        return checkInOutDomainRepository.buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(uuid, idUnidade, data);
     }
 
     public List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate dataHora) {

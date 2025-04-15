@@ -17,6 +17,7 @@ public class CheckInOutMapper {
         return new CheckInOutResponse(
                 checkInDomain.getId(),
                 checkInDomain.getIdMedico(),
+                checkInDomain.getUUID(),
                 checkInDomain.getIdUnidade(),
                 verificaSeDataNulaEFormata(checkInDomain.getCheckIn()),
                 verificaSeDataNulaEFormata(checkInDomain.getCheckOut()),
@@ -27,8 +28,9 @@ public class CheckInOutMapper {
     public static CheckInOutDomain toCheckInDomain(CheckInOutRequest checkInOutDTO) {
         return CheckInOutDomain
                 .builder()
-                .id(checkInOutDTO.getId())
+              //.id(checkInOutDTO.getId())
                 .idMedico(checkInOutDTO.getIdMedico())
+                .UUID(checkInOutDTO.getUUID())
                 .idUnidade(checkInOutDTO.getIdUnidade())
                 .build();
     }

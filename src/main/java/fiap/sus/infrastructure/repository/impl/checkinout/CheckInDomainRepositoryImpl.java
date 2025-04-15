@@ -1,5 +1,6 @@
 package fiap.sus.infrastructure.repository.impl.checkinout;
 
+import fiap.sus.application.usecases.medicos.BuscaInformacoesMedicoUseCase;
 import fiap.sus.domain.exceptions.CheckOutInException;
 import fiap.sus.domain.model.CheckInOutDomain;
 import fiap.sus.domain.repository.checkinout.CheckInDomainRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,6 +21,7 @@ import java.util.Objects;
 public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
 
     private final CheckInOutJpaRepository checkInOutRepository;
+    private final BuscaInformacoesMedicoUseCase buscaInformacoesMedicoUseCase;
 
     @Override
     public void checkIn(CheckInOutDomain checkInOutDomain) {
@@ -29,7 +32,7 @@ public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
                 checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
 
         var checkInExistente = checkInOutRepository.findByIdMedicoAndIdUnidadeAndCheckIn
-                (checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade(), LocalDate.now());
+                (checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade(), LocalDate.now());
 
         if (Objects.nonNull(checkInExistente)) {
             log.warn("O médico [{}] já possui check-in hoje na unidade [{}]", checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
@@ -39,7 +42,7 @@ public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
         }
 
         log.info("Inserindo no CheckIn a data e hora atual  do sistema " + LocalDateTime.now() + " para o médico [{}] na unidade [{}]",
-                checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+                checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
         checkIn.setCheckIn(LocalDateTime.now());
         checkIn.setData(LocalDateTime.now());
 

@@ -14,6 +14,7 @@ public class CheckinOutPersistenceMapper {
                 .builder()
                 .id(checkinOutPersistence.getId())
                 .idUnidade(checkinOutPersistence.getIdUnidade())
+                .UUID(checkinOutPersistence.getUUID())
                 .idMedico(checkinOutPersistence.getIdMedico())
                 .checkIn(checkinOutPersistence.getCheckIn())
                 .checkOut(checkinOutPersistence.getCheckOut())
@@ -27,6 +28,7 @@ public class CheckinOutPersistenceMapper {
                 .id(checkInOutDomain.getId())
                 .idUnidade(checkInOutDomain.getIdUnidade())
                 .idMedico(checkInOutDomain.getIdMedico())
+                .UUID(checkInOutDomain.getUUID())
                 .checkIn(checkInOutDomain.getCheckIn())
                 .checkOut(checkInOutDomain.getCheckOut())
                 .build();

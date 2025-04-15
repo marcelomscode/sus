@@ -9,6 +9,7 @@ public class CheckInOutResponse {
 
     private Long id;
     private Long idMedico;
+    private String UUID;
     private Long idUnidade;
     private String checkIn;
     private String checkOut;
@@ -21,9 +22,10 @@ public class CheckInOutResponse {
     }
 
 
-    public CheckInOutResponse(Long id, Long idMedico, Long idUnidade, String checkIn, String checkOut, String data) {
+    public CheckInOutResponse(Long id, Long idMedico, String UUID, Long idUnidade, String checkIn, String checkOut, String data) {
         this.id = id;
         this.idMedico = idMedico;
+        this.UUID = UUID;
         this.idUnidade = idUnidade;
         this.checkIn = checkIn;
         this.checkOut = checkOut;

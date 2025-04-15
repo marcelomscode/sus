@@ -23,40 +23,40 @@ public class CheckOutDomainRepositoryImpl implements CheckOutDomainRepository {
     public void checkOut(CheckInOutDomain checkInOutDomain) {
 
         log.info("Verificando se o médico [{}] já possui check-out hoje na unidade [{}]",
-                checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+                checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
 
         var checkOutExistente = checkInOutRepository.findByIdMedicoAndIdUnidadeAndCheckout
-                (checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade(), LocalDate.now());
+                (checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade(), LocalDate.now());
 
         if (Objects.nonNull(checkOutExistente)) {
             var logMensagem = "O médico [{}] já possui check-out hoje na unidade [{}]";
-            log.warn(logMensagem, checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+            log.warn(logMensagem, checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
             var mensagem =  "O médico já possui check-out feito hoje nessa unidade "
                     +checkInOutDomain.getIdUnidade()+": ";
             throw new CheckOutInException(mensagem, HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
         }
 
         log.info("Verificando se o médico [{}] efetuou o check-in hoje na unidade [{}]",
-                checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+                checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
 
         var checkInExistente = checkInOutRepository.findByIdMedicoAndIdUnidadeAndCheckIn
-                (checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade(), LocalDate.now());
+                (checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade(), LocalDate.now());
 
         if (Objects.isNull(checkInExistente)) {
             var mensagem = "O médico [{}] não efetuou o check-in hoje na unidade [{}]";
-            log.warn(mensagem, checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+            log.warn(mensagem, checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
             throw new CheckOutInException("O médico não efetuou o check-in hoje na unidade: "
                     + checkInOutDomain.getIdUnidade(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
         }
 
         log.info("Inserindo no CheckOut a data e hora atual  do sistema " + LocalDateTime.now() + " para o médico [{}] na unidade [{}]",
-                checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
+                checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());
         checkInExistente.setCheckOut(LocalDateTime.now());
 
         checkInOutRepository.save(checkInExistente);
 
         log.info("CheckOut realizado com sucesso para o médico [{}] na unidade [{}] em [{}]",
-                checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade(), LocalDateTime.now());
+                checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade(), LocalDateTime.now());
     }
 
 }

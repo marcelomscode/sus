@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 public class CheckInOutDomain {
 
     private Long id;
-    @Column(nullable = false)
     private Long idMedico;
+    @Column(nullable = false)
+    private String UUID;
     @Column(nullable = false)
     private Long idUnidade;
     private LocalDateTime checkIn;

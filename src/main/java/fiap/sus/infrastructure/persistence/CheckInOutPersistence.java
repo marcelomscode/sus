@@ -21,9 +21,9 @@ public class CheckInOutPersistence {
     private Long id;
     private Long idMedico;
     private Long idUnidade;
+    private String UUID;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
     private LocalDateTime data;
-
 
 }

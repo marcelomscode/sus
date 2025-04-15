@@ -77,6 +77,7 @@ public class CheckInOutController {
     @Operation(summary = "Busca todos os check-in/check-out feitos em uma unidade.",
             description = "Busca todos check-in/check-out feitos em uma unidade")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorUnidade(@PathVariable Long idUnidade) {
+
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorUnidade(idUnidade);
 
         var checkInOutDto = checkInOut.stream().map(CheckInOutMapper::toCheckInResponse).toList();
@@ -88,7 +89,7 @@ public class CheckInOutController {
     @GetMapping("medico/{idMedico}")
     @Operation(summary = "Busca todos os check-in/check-out feitos por um médico.",
             description = "Busca todos check-in/check-out feitos por um médico")
-    public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedico(@PathVariable long idMedico) {
+    public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedico(@PathVariable String idMedico) {
 
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorMedico(idMedico);
 
@@ -103,7 +104,7 @@ public class CheckInOutController {
     @Operation(summary = "Busca todos check-in/check-out por médico, unidade e data.",
             description = "Busca todos check-in/check-out por médico, unidade e data")
     public ResponseEntity<List<CheckInOutResponse>> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(
-            @PathVariable long idMedico, @PathVariable long idUnidade, @PathParam("data") String data) {
+            @PathVariable String idMedico, @PathVariable long idUnidade, @PathParam("data") String data) {
 
         var checkInOut = buscaCheckInOutUseCase.buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(idMedico, idUnidade,
                 DatasConversao.toLocalDate(data));

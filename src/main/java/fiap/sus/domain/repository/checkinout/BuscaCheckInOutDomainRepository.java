@@ -13,7 +13,11 @@ public interface BuscaCheckInOutDomainRepository {
 
     List<CheckInOutDomain> buscaCheckInOutPorMedico(long idMedico);
 
+    List<CheckInOutDomain> buscaCheckInOutPorMedico(String idMedico);
+
     List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(long idMedico, long idUnidade, LocalDate data);
+
+    List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(String uuid, long idUnidade, LocalDate data);
 
     List<CheckInOutDomain> buscaCheckInOutPorUnidadeEData(long idUnidade, LocalDate dataHora);
 
