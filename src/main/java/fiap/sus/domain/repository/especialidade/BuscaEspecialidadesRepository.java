@@ -6,10 +6,8 @@ import java.util.List;
 
 public interface BuscaEspecialidadesRepository {
 
-    List<EspecialidadesDomain> listarTodasEspecialidades();
+    List<EspecialidadesDomain> buscarTodasEspecialidades();
 
     EspecialidadesDomain buscarPorId(long id);
-
-    EspecialidadesDomain buscarPorNome(String nome);
 
 }

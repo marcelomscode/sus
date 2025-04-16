@@ -1,8 +1,9 @@
-package fiap.application;
+package fiap;
 
 import fiap.sus.domain.model.EspecialidadesDomain;
 import fiap.sus.domain.model.UnidadeDomain;
 import fiap.sus.infrastructure.mappers.UnidadePersistenceMapper;
+import fiap.sus.infrastructure.persistence.EspecialidadesPersistence;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
 
 import java.util.Set;
@@ -39,6 +40,15 @@ public class Helper {
                 .ativo(unidade.isAtivo())
                 .build();
     }
+
+    public static EspecialidadesPersistence getEspecialidade() {
+        return EspecialidadesPersistence
+                .builder()
+                .nome("Cardiologia")
+                .descricao("Cardiologia é a especialidade médica que estuda o coração.")
+                .build();
+    }
+
 
 
 }

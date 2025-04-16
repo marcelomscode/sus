@@ -81,20 +81,6 @@ public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepos
     }
 
     @Override
-    public List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(long idMedico, long idUnidade, LocalDate data) {
-
-        log.info(CHECKINOUT_MEDICO_UNIDADE, data);
-        var checkInOut = checkInOutJpaRepository.buscaCheckInOutPorMedicoEPorUnidadeEPorData(idMedico, idUnidade, data);
-        if (Objects.isNull(checkInOut)) {
-            throw new CheckOutInException("Dados de CheckIn na unidade " + idUnidade + " com Médico " + idMedico + " " +
-                    " e data " + data + " não econtrados, verifique os dados e tente novamente.",
-                    HttpStatus.BAD_REQUEST, 400);
-        }
-
-        return checkInOut.stream().map(CheckinOutPersistenceMapper::toCheckInDomain).toList();
-    }
-
-    @Override
     public List<CheckInOutDomain> buscaCheckInOutPorMedicoEPorUnidadeEPorDataCheckIn(String uuid, long idUnidade, LocalDate data) {
         log.info(CHECKINOUT_MEDICO_UNIDADE, data);
         var checkInOut = checkInOutJpaRepository.buscaCheckInOutPorMedicoEPorUnidadeEPorData(uuid, idUnidade, data);

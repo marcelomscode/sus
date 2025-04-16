@@ -1,4 +1,4 @@
-package fiap.infrastructure.repository.jpa;
+package fiap.infrastructure.repository.jpa.unidade;
 
 import fiap.sus.domain.exceptions.UnidadeException;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static fiap.application.Helper.getUnidadePersistence;
+import static fiap.Helper.getUnidadePersistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.doAnswer;

@@ -1,4 +1,4 @@
-package fiap.application.usecase.SalvaUnidade;
+package fiap.application.usecase.unidades;
 
 import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.repository.unidade.UnidadeDomainRepository;
@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static fiap.application.Helper.getUnidade;
+import static fiap.Helper.getUnidade;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

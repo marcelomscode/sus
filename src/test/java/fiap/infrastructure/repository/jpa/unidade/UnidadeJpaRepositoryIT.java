@@ -1,4 +1,4 @@
-package fiap.infrastructure.repository.jpa;
+package fiap.infrastructure.repository.jpa.unidade;
 
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
@@ -17,8 +17,8 @@ import org.springframework.dao.InvalidDataAccessResourceUsageException;
 
 import java.util.Set;
 
-import static fiap.application.Helper.getUnidade;
-import static fiap.application.Helper.getUnidadePersistence;
+import static fiap.Helper.getUnidade;
+import static fiap.Helper.getUnidadePersistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

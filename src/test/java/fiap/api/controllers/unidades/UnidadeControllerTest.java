@@ -1,8 +1,8 @@
-package fiap.api.controllers;
+package fiap.api.controllers.unidades;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fiap.application.Helper;
+import fiap.Helper;
 import fiap.sus.api.controllers.UnidadeController;
 import fiap.sus.api.mappers.EspecialidadeDomainMapper;
 import fiap.sus.api.mappers.UnidadeDomainMapper;

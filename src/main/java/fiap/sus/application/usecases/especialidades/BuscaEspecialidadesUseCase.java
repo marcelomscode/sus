@@ -17,7 +17,7 @@ public class BuscaEspecialidadesUseCase {
 
     public List<EspecialidadesDomain> listarTodasEspecialidades() {
         log.info("Listando todas as especialidades");
-        return buscaEspecialidadeDomainRepository.listarTodasEspecialidades();
+        return buscaEspecialidadeDomainRepository.buscarTodasEspecialidades();
     }
 
 

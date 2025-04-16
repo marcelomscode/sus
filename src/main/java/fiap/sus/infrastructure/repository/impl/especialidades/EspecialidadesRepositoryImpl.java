@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class EspecialidadesRepositoryImpl implements EspecialidadeRepository {
 
     private final EspecialidadesJpaRepository repository;
-    private final BuscaEspecialidadesRepository buscaEspecialidadeDomainRepository;
+    private final BuscaEspecialidadesRepository buscaEspecialidadesRepository;
 
     public EspecialidadesRepositoryImpl(EspecialidadesJpaRepository repository, BuscaEspecialidadesRepository buscaEspecialidadeDomainRepository) {
         this.repository = repository;
-        this.buscaEspecialidadeDomainRepository = buscaEspecialidadeDomainRepository;
+        this.buscaEspecialidadesRepository = buscaEspecialidadeDomainRepository;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class EspecialidadesRepositoryImpl implements EspecialidadeRepository {
             return EspecialidadePersistenceMapper.toDomain(especialidadePersistence);
         } catch (EspecialidadeException e) {
             log.error("Error ao salvar especialidade: {}", e.getMessage());
-            throw new EspecialidadeException("Erro ao salvar especialidade: " + e, HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+            throw new EspecialidadeException("Erro ao salvar especialidade.", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
         }
 
     }
@@ -41,7 +41,7 @@ public class EspecialidadesRepositoryImpl implements EspecialidadeRepository {
     public EspecialidadesDomain atualizar(EspecialidadesDomain especialidade) {
 
         try {
-            buscaEspecialidadeDomainRepository.buscarPorId(especialidade.getId());
+          //  buscaEspecialidadesRepository.buscarPorId(especialidade.getId());
 
             log.info("Atualizando especialidade " + especialidade);
             var especialidadePersistence = repository.save(EspecialidadePersistenceMapper.toPersistence(especialidade));
@@ -49,7 +49,7 @@ public class EspecialidadesRepositoryImpl implements EspecialidadeRepository {
             return EspecialidadePersistenceMapper.toDomain(especialidadePersistence);
         } catch (EspecialidadeException e) {
             log.error("Error ao atualizar especialidade: {}", e.getMessage());
-            throw new EspecialidadeException("Erro ao atualizar especialidade: " + e, HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+            throw new EspecialidadeException("Erro ao atualizar especialidade. ", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
         }
     }
 

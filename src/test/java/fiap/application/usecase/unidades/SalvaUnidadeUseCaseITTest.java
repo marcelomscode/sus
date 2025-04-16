@@ -1,4 +1,4 @@
-package fiap.application.usecase.SalvaUnidade;
+package fiap.application.usecase.unidades;
 
 import fiap.sus.application.usecases.unidades.SalvaUnidadeUseCase;
 import fiap.sus.domain.model.EspecialidadesDomain;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.Set;
 
-import static fiap.application.Helper.getUnidade;
+import static fiap.Helper.getUnidade;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

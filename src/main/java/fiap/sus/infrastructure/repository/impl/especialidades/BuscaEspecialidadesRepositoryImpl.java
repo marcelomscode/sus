@@ -22,7 +22,7 @@ public class BuscaEspecialidadesRepositoryImpl implements BuscaEspecialidadesRep
     }
 
     @Override
-    public List<EspecialidadesDomain> listarTodasEspecialidades() {
+    public List<EspecialidadesDomain> buscarTodasEspecialidades() {
 
         log.info("Listando todas as especialidades");
         var especialidades = repository.findAll();
@@ -43,11 +43,6 @@ public class BuscaEspecialidadesRepositoryImpl implements BuscaEspecialidadesRep
             throw new EspecialidadeException("Especialidade não encontrada: "+ id, HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
         }
         return EspecialidadePersistenceMapper.toDomain(especialidade.get());
-    }
-
-    @Override
-    public EspecialidadesDomain buscarPorNome(String nome) {
-        return null;
     }
 
 }
