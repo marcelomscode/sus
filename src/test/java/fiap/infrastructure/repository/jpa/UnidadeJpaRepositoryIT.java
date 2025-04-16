@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 
 import java.util.Set;
 
@@ -91,15 +92,47 @@ class UnidadeJpaRepositoryIT {
         }
     }
 
-//    @Test
-//    void deveExcluirUnidade() {
-//        fail("Not yet implemented");
-//    }
-//TODO Implementar teste de exclusão
-//    @Test
-//    void deveExcluirUnidadeVerificandoParametrosPassados() {
-//        fail("Not yet implemented");
-//    }
+    @Nested
+    class atualizaUnidade {
+
+        @Test
+        void deveAtualizarUnidade() {
+
+            var unidade = getUnidadePersistence(getUnidade());
+            var unidadeAtualizada = repository.save(unidade);
+            assertThat(unidadeAtualizada)
+                    .isNotNull()
+                    .isEqualTo(unidade);
+        }
+
+        @Test
+        void deveLancarExcecaoAoAtualizarUnidade() {
+
+            var unidade = getUnidadePersistence();
+
+            try {
+                repository.save(unidade);
+            } catch (InvalidDataAccessResourceUsageException e) {
+                assertThat(e.getMessage()).contains("could not prepare statement [Table \"UNIDADE_ESPECIALIDADE\" not found;");
+            }
+        }
+    }
+
+    @Nested
+    class excluirUnidade {
+
+        @Test
+        void deveExcluirUnidade() {
+
+            var unidade = getUnidadePersistence(getUnidade());
+            var unidadeAtualizada = repository.save(unidade);
+
+            repository.delete(unidadeAtualizada);
+            var unidadeOptional = repository.findById(unidadeAtualizada.getId());
+            assertThat(unidadeOptional).isNotPresent();
+
+        }
+    }
 
     @Test
     void deveBuscarUnidadePorId() {
@@ -118,11 +151,6 @@ class UnidadeJpaRepositoryIT {
             assertThat(mensagem.getEndereco()).isEqualTo(novaUnidade.getEndereco());
         });
     }
-
-//    @Test
-//    void deveBuscarUnidadePorIdVerificandoParametrosPassados() {
-//        fail("Not yet implemented");
-//    }
 
     @Test
     void deveRetornarListaDeUnidades() {

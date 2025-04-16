@@ -13,9 +13,8 @@ public class BuscaInformacoesMedicoUseCase {
 
     private final BuscaInformacoesMedicoRepository repository;
 
-    public MedicoDomain findById(long id) {
-        return repository.findById(id);
+    public MedicoDomain buscaMedicoByUUID(String uuid) {
+        return repository.buscaMedicoByUUID(uuid);
     }
-
 
 }

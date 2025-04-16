@@ -1,21 +1,39 @@
 package fiap.infrastructure.repository.jpa;
 
+import fiap.sus.domain.exceptions.UnidadeException;
 import fiap.sus.infrastructure.persistence.UnidadePersistence;
+import fiap.sus.infrastructure.repository.jpa.CheckInOutJpaRepository;
 import fiap.sus.infrastructure.repository.jpa.UnidadeJpaRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
+import org.springframework.http.HttpStatus;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
 import static fiap.application.Helper.getUnidadePersistence;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class UnidadeJpaRepositoryTest {
 
     @Mock
     private UnidadeJpaRepository repository;
+
+    @Mock
+    private CheckInOutJpaRepository checkInOutRepository;
 
     AutoCloseable openMocks;
 
@@ -61,6 +79,42 @@ class UnidadeJpaRepositoryTest {
             verify(repository, times(1)).save(unidade);
         }
     }
+
+    @Nested
+    class atualizaUnidade{
+
+        @Test
+        void deveAtualizarUnidade() {
+
+            var unidade = getUnidadePersistence();
+
+            when(repository.save(unidade)).thenReturn(unidade);
+
+            var unidadeAtualizada = repository.save(unidade);
+            assertThat(unidadeAtualizada)
+                    .isNotNull()
+                    .isEqualTo(unidade);
+
+            verify(repository, times(1)).save(unidade);
+        }
+
+        @Test
+        void deveLancarExcecaoAoAtualizarUnidade() {
+
+            var unidade = getUnidadePersistence();
+
+            when(repository.save(unidade)).thenThrow(
+                    new UnidadeException("Erro ao atualizar unidade", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
+
+            try {
+                repository.save(unidade);
+            } catch (UnidadeException e) {
+                assertThat(e.getMessage()).isEqualTo("Erro ao atualizar unidade");
+            }
+            verify(repository, times(1)).save(unidade);
+        }
+    }
+
 
     @Nested
     class excluirUnidade {
@@ -132,6 +186,25 @@ class UnidadeJpaRepositoryTest {
 
             verify(repository, times(1)).findAll();
         }
+
+        @Test
+        void deveBuscarMedicosAtendendoNaUnidade() {
+            var unidade = getUnidadePersistence();
+
+            when(checkInOutRepository.buscaMedicosComCheckInEmUmaUnidade(unidade.getId(),
+                    LocalDate.of(2025,4,10))).thenReturn(List.of());
+
+            var medicos = checkInOutRepository.buscaMedicosComCheckInEmUmaUnidade(unidade.getId(),
+                    LocalDate.of(2025,4,10));
+
+            assertThat(medicos)
+                    .isNotNull()
+                    .isEmpty();
+
+            verify(checkInOutRepository, times(1)).buscaMedicosComCheckInEmUmaUnidade(unidade.getId(),
+                    LocalDate.of(2025,4,10));
+        }
+
     }
 
 }

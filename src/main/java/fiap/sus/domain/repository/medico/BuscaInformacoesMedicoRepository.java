@@ -4,6 +4,6 @@ import fiap.sus.domain.model.MedicoDomain;
 
 public interface BuscaInformacoesMedicoRepository {
 
-    MedicoDomain findById(long id);
+    MedicoDomain buscaMedicoByUUID(String uuid);
 
 }
