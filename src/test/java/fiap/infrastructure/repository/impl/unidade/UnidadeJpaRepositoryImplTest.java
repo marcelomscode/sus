@@ -88,7 +88,6 @@ class UnidadeJpaRepositoryImplTest {
               .hasMessageContaining("Unidade não encontrada com id: " + 1L);
     }
 
-
     @Test
     void deveExcluirUnidade() {
 
@@ -100,7 +99,6 @@ class UnidadeJpaRepositoryImplTest {
 
         verify(repository, times(1)).deleteById(unidade.getId());
     }
-
 
     @Test
     void deveAtualizarUnidade() {

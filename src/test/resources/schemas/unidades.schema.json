@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "required": [
+    "id",
+    "nome",
+    "endereco",
+    "ativo",
+    "especialidades"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "nome": {
+      "type": "string"
+    },
+    "endereco": {
+      "type": "string"
+    },
+    "ativo": {
+      "type": "boolean"
+    },
+    "especialidades": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "nome",
+          "descricao"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -20,18 +20,18 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
 
-    private final CheckInOutJpaRepository checkInOutRepository;
+    private final CheckInOutJpaRepository checkInOutJpaRepository;
     private final BuscaInformacoesMedicoUseCase buscaInformacoesMedicoUseCase;
 
     @Override
-    public void checkIn(CheckInOutDomain checkInOutDomain) {
+    public void medicoRealizarCheckIn(CheckInOutDomain checkInOutDomain) {
 
         var checkIn = CheckinOutPersistenceMapper.toCheckInOutPersistence(checkInOutDomain);
 
         log.info("Verificando se o médico [{}] já possui check-in hoje na unidade [{}]",
                 checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade());
 
-        var checkInExistente = checkInOutRepository.findByIdMedicoAndIdUnidadeAndCheckIn
+        var checkInExistente = checkInOutJpaRepository.findByIdMedicoAndIdUnidadeAndCheckIn
                 (checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade(), LocalDate.now());
 
         if (Objects.nonNull(checkInExistente)) {
@@ -46,7 +46,7 @@ public class CheckInDomainRepositoryImpl implements CheckInDomainRepository {
         checkIn.setCheckIn(LocalDateTime.now());
         checkIn.setData(LocalDateTime.now());
 
-        checkInOutRepository.save(checkIn);
+        checkInOutJpaRepository.save(checkIn);
 
         log.info("CheckIn realizado com sucesso para o médico [{}] na unidade [{}] em [{}]",
                 checkInOutDomain.getIdMedico(), checkInOutDomain.getIdUnidade(), LocalDateTime.now());

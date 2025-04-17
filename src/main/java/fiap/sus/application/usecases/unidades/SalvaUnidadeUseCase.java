@@ -16,7 +16,6 @@ public class SalvaUnidadeUseCase {
     private static final String UNIDADE_SALVA = "Unidade salva com sucesso: {}";
     private static final String ERRO_SALVAR_UNIDADE = "Erro ao salvar unidade: {}";
 
-
     public void save(UnidadeDomain persistence) {
         try {
             if (persistence.getNome() == null || persistence.getNome().isEmpty()) {

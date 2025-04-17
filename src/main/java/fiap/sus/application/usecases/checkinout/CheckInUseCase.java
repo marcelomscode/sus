@@ -11,8 +11,8 @@ public class CheckInUseCase {
 
     private final CheckInDomainRepository checkInOutRepository;
 
-    public void checkIn(CheckInOutDomain checkInOutDomain) {
-        checkInOutRepository.checkIn(checkInOutDomain);
+    public void medicoRealizarCheckIn(CheckInOutDomain checkInOutDomain) {
+        checkInOutRepository.medicoRealizarCheckIn(checkInOutDomain);
     }
 
 }

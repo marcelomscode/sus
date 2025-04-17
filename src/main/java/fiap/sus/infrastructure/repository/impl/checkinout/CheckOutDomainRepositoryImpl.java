@@ -20,7 +20,7 @@ public class CheckOutDomainRepositoryImpl implements CheckOutDomainRepository {
     private final CheckInOutJpaRepository checkInOutRepository;
 
     @Override
-    public void checkOut(CheckInOutDomain checkInOutDomain) {
+    public void medicoRealizaCheckOut(CheckInOutDomain checkInOutDomain) {
 
         log.info("Verificando se o médico [{}] já possui check-out hoje na unidade [{}]",
                 checkInOutDomain.getUUID(), checkInOutDomain.getIdUnidade());

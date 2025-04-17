@@ -53,7 +53,7 @@ public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepos
     }
 
     @Override
-    public List<CheckInOutDomain> buscaCheckInOutPorMedico(long idMedico) {
+    public List<CheckInOutDomain> buscaCheckInOutPorMedicoUUID(long idMedico) {
 
         log.info("Buscando check-in/check-out do médico [{}]", idMedico);
         var checkInOut = checkInOutJpaRepository.findByIdMedico(idMedico);
@@ -67,7 +67,7 @@ public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepos
     }
 
     @Override
-    public List<CheckInOutDomain> buscaCheckInOutPorMedico(String idMedico) {
+    public List<CheckInOutDomain> buscaCheckInOutPorMedicoUUID(String idMedico) {
 
         log.info("Buscando check-in/check-out do médico [{}]", idMedico);
         var checkInOut = checkInOutJpaRepository.findByUUID(idMedico);
@@ -111,7 +111,7 @@ public class BuscaCheckInOutRepositoryImpl implements BuscaCheckInOutDomainRepos
     public List<CheckInOutDomain> buscaMedicosComCheckInEmUmaUnidade(long idUnidade, LocalDate data) {
 
         var response = checkInOutJpaRepository.buscaMedicosComCheckInEmUmaUnidade(idUnidade, data);
-        if (response.isEmpty()) {
+        if (Objects.isNull(response)) {
             throw new CheckOutInException("No momento não temos médicos atendendo na unidade " + idUnidade
                     + " tente novamente mais tarde.", HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
         }

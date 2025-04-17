@@ -19,6 +19,4 @@ public class BuscaEspecialidadesUseCase {
         log.info("Listando todas as especialidades");
         return buscaEspecialidadeDomainRepository.buscarTodasEspecialidades();
     }
-
-
 }

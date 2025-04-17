@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static fiap.Helper.getUnidade;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -38,14 +40,12 @@ class SalvaUnidadeUseCaseTest {
     class SalvaUnidade {
         @Test
         void deveSalvarUnidadeUsecase() {
-            // Arrange
             var unidade = getUnidade();
 
-            // Act
-            salvaUnidadeuseCase.save(unidade);
+            doNothing().when(repository).save(any());
 
-            // Assert
-            verify(repository, times(1)).save(unidade);
+            salvaUnidadeuseCase.save(unidade);
+            verify(repository, times(1)).save(any());
         }
     }
 

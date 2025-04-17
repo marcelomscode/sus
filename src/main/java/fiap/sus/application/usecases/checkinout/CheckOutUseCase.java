@@ -11,8 +11,8 @@ public class CheckOutUseCase {
 
     private final CheckOutDomainRepository checkInOutRepository;
 
-    public void checkOut(CheckInOutDomain checkInOutDomain) {
-        checkInOutRepository.checkOut(checkInOutDomain);
+    public void medicoRealizaCheckOut(CheckInOutDomain checkInOutDomain) {
+        checkInOutRepository.medicoRealizaCheckOut(checkInOutDomain);
     }
 
 }

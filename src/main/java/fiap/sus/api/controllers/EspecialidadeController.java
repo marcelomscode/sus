@@ -53,8 +53,8 @@ public class EspecialidadeController {
     @Schema(name = "NovaEspecialidadeRequest", implementation = NovaEspecialidadeRequest.class)
     public ResponseEntity<String> salvaEspecialidade(@RequestBody NovaEspecialidadeRequest especialidadeRequest ) {
 
-        salvaEspecialidadeUseCase.save(EspecialidadeMapperOld.toDomainNovaEspecialidade(especialidadeRequest));
-        log.info("FIM salva especialidade: {}", especialidadeRequest);
+        var especialidadeSalva = salvaEspecialidadeUseCase.save(EspecialidadeMapperOld.toDomainNovaEspecialidade(especialidadeRequest));
+        log.info("FIM salva especialidade: {}", especialidadeSalva.getNome());
 
         return ResponseEntity.ok("Especialidade salva com sucesso");
     }

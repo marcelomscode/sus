@@ -14,16 +14,8 @@ public interface CheckInOutJpaRepository extends JpaRepository<CheckInOutPersist
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2")
     CheckInOutPersistence findByIdMedicoAndIdUnidade(long idMedico, long idUnidade);
 
-//    @Deprecated
-//    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2 AND check_in like ?3%")
-//    CheckInOutPersistence findByIdMedicoAndIdUnidadeAndCheckIn(long idMedico, long idUnidade, LocalDate checkIn);
-
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE uuid = ?1 AND id_unidade = ?2 AND check_in like ?3%")
     CheckInOutPersistence findByIdMedicoAndIdUnidadeAndCheckIn(String uuid, long idUnidade, LocalDate checkIn);
-
-//    @Deprecated
-//    @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE id_medico = ?1 AND id_unidade = ?2 AND check_out like ?3%")
-//    CheckInOutPersistence findByIdMedicoAndIdUnidadeAndCheckout(long idMedico, long idUnidade, LocalDate checkIn);
 
     @Query(nativeQuery = true, value = "SELECT * FROM checkinout WHERE uuid = ?1 AND id_unidade = ?2 AND check_out like ?3%")
     CheckInOutPersistence findByIdMedicoAndIdUnidadeAndCheckout(String uuid, long idUnidade, LocalDate checkIn);

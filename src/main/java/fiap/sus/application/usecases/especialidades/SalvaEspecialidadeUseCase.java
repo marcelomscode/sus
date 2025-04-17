@@ -13,9 +13,9 @@ public class SalvaEspecialidadeUseCase {
 
     private final EspecialidadeRepository repository;
 
-    public void save(EspecialidadesDomain especialidadeDomain) {
+    public EspecialidadesDomain save(EspecialidadesDomain especialidadeDomain) {
         log.info("Salvando especialidade: {}", especialidadeDomain);
-        repository.save(especialidadeDomain);
+       return repository.save(especialidadeDomain);
     }
 
 }

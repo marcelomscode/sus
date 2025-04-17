@@ -15,11 +15,11 @@ CREATE TABLE IF NOT EXISTS especialidades(
 
 CREATE TABLE IF NOT EXISTS checkinout(
     id BIGINT NOT NULL AUTO_INCREMENT,
-    id_medico BIGINT NOT NULL ,
+    id_medico BIGINT,
     id_unidade BIGINT NOT NULL ,
     UUID varchar NOT NULL ,
-    check_in TIMESTAMP NOT NULL,
-    check_out TIMESTAMP NOT NULL,
+    check_in TIMESTAMP,
+    check_out TIMESTAMP,
     data TIMESTAMP NOT NULL,
     PRIMARY KEY (id)
 );

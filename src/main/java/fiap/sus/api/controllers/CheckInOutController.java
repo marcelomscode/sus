@@ -42,7 +42,7 @@ public class CheckInOutController {
     public ResponseEntity<String> checkIn(@RequestBody CheckInOutRequest request) {
         var checkin = CheckInOutMapper.toCheckInDomain(request);
 
-        checkInUseCase.checkIn(checkin);
+        checkInUseCase.medicoRealizarCheckIn(checkin);
 
         return ResponseEntity.ok("Check-in realizado com sucesso!");
     }
@@ -54,7 +54,7 @@ public class CheckInOutController {
     public ResponseEntity<String> checkOut(@RequestBody CheckInOutRequest request) {
         var checkOut = CheckInOutMapper.toCheckInDomain(request);
 
-        checkOutUseCase.checkOut(checkOut);
+        checkOutUseCase.medicoRealizaCheckOut(checkOut);
 
         return ResponseEntity.ok("Check-out realizado com sucesso!");
     }
