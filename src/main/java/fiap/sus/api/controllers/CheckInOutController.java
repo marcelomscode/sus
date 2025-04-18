@@ -39,24 +39,24 @@ public class CheckInOutController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Realiza o check-in de um médico na unidade.",
             description = "Realiza o check-in de um médico na unidade")
-    public ResponseEntity<String> checkIn(@RequestBody CheckInOutRequest request) {
+    public ResponseEntity<CheckInOutRequest> medicoRealizarCheckIn(@RequestBody CheckInOutRequest request) {
         var checkin = CheckInOutMapper.toCheckInDomain(request);
 
         checkInUseCase.medicoRealizarCheckIn(checkin);
 
-        return ResponseEntity.ok("Check-in realizado com sucesso!");
+        return ResponseEntity.ok(request);
     }
 
     @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Realiza o check-out de um médico na unidade.",
             description = "Realiza o check-out de um médico na unidade")
-    public ResponseEntity<String> checkOut(@RequestBody CheckInOutRequest request) {
+    public ResponseEntity<CheckInOutRequest> medicoRealizaCheckOut(@RequestBody CheckInOutRequest request) {
         var checkOut = CheckInOutMapper.toCheckInDomain(request);
 
         checkOutUseCase.medicoRealizaCheckOut(checkOut);
 
-        return ResponseEntity.ok("Check-out realizado com sucesso!");
+        return ResponseEntity.ok(request);
     }
 
     @GetMapping("medico-unidade/{idMedico}/{idUnidade}")
