@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -94,24 +96,26 @@ class EspecialidadesRepositoryImplTest {
         void deveAtualizarEspecialidade() {
             var especialidade = EspecialidadesPersistence
                     .builder()
+                    .id(45L)
                     .nome("Cardiologia")
                     .descricao("Cardiologia é a especialidade médica que estuda o coração e os vasos sanguíneos e veias e artérias.")
                     .build();
 
             var especialidadeDomain = EspecialidadesDomain
                     .builder()
+                    .id(45L)
                     .nome("Cardiologia")
                     .descricao("Cardiologia é a especialidade médica que estuda o coração e os vasos sanguíneos.")
                     .build();
 
-            when(buscaEspecialidadesRepository.buscarPorId(any(Long.class))).thenReturn(especialidadeDomain);
-
             when(repository.save(any(EspecialidadesPersistence.class))).thenReturn(especialidade);
+
+            when(repository.findById(any(Long.class))).thenReturn(Optional.of(especialidade));
 
             var unidadeSalvo = unidadeRepositoryImpl.atualizar(especialidadeDomain);
 
             assertThat(unidadeSalvo.getDescricao())
-                    .contains("Cardiologia é a especialidade médica que estuda o coração e os vasos sanguíneos e veias e artérias.");
+                    .contains("Cardiologia é a especialidade médica que estuda o coração e os vasos sanguíneos.");
 
 
 
@@ -132,7 +136,7 @@ class EspecialidadesRepositoryImplTest {
 
             assertThatThrownBy( () -> unidadeRepositoryImpl.atualizar(especialidadeDomain))
                     .isInstanceOf(EspecialidadeException.class)
-                    .hasMessageContaining("Erro ao atualizar especialidade.");
+                    .hasMessageContaining("Erro ao atualizar especialidade: Especialidade não encontrada.");
         }
 
 

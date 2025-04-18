@@ -95,7 +95,7 @@ class UnidadeControllerTestIT {
     class DeveBuscarUnidades {
 
         @Test
-        void deveBuscarUnidadePorIdREstAssered() throws Exception {
+        void deveBuscarUnidadePorIdREstAssered(){
             var idUnidade = 1L;
 
             var response = given()
@@ -140,7 +140,6 @@ class UnidadeControllerTestIT {
                     .param("data", "2023-10-01")
                     .get("/api/unidades/medicos/{idUnidade}/checkin", idUnidade)
                     .then()
-                    .log().all()
                     .statusCode(HttpStatus.OK.value())
                     .body("idUnidade", is(1))
                     .body("medicosAtendendo[0].checkIn", is("2023-10-01T08:00:00"))

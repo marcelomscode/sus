@@ -5,6 +5,10 @@ import fiap.sus.infrastructure.persistence.EspecialidadesPersistence;
 
 public class EspecialidadePersistenceMapper {
 
+    private EspecialidadePersistenceMapper() {
+        throw new IllegalStateException("Classe Utilitaria, não deve ser instanciada");
+    }
+
     public static EspecialidadesDomain toDomain(EspecialidadesPersistence especialidadePersistence) {
         return new EspecialidadesDomain(
                 especialidadePersistence.getId(),
@@ -20,6 +24,7 @@ public class EspecialidadePersistenceMapper {
                 especialidadesDomain.getDescricao()
         );
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package fiap.api.controllers.especialidades;
 
+import fiap.sus.api.dto.especialidade.EspecialidadeRequest;
 import fiap.sus.api.dto.especialidade.NovaEspecialidadeRequest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,22 +46,37 @@ class SalvarEspecialidade {
 
     @Test
     void deveAtualizarEspecialidade() {
+
         var especialidade = NovaEspecialidadeRequest.builder()
-                .nome("Cardiologia")
-                .descricao("Especialidade médica que cuida do coração e sistema cardiovascular")
+                .nome("Psicologia")
+                .descricao("Cuidando bem dos profissionais de saúde mental")
                 .build();
 
         given()
                 .when()
                 .contentType("application/json")
                 .body(especialidade)
+                .post("especialidades")
+                .then()
+                .statusCode(200)
+                .body(is("Especialidade salva com sucesso"));
+
+        var especialidadeAtualizada = EspecialidadeRequest.builder()
+                .id(5L)
+                .nome("Psicologia")
+                .descricao("Cuidando bem dos profissionais de TI")
+                .build();
+
+        given()
+                .when()
+                .contentType("application/json")
+                .body(especialidadeAtualizada)
                 .put("especialidades")
                 .then()
-                .log().all()
                 .statusCode(200)
-                .body("id", is(15))
-                .body("nome", is("Cardiologia"))
-                .body("descricao", is("Especialidade médica que cuida do coração e sistema cardiovascular"));
+                .body("id", is(5))
+                .body("nome", is("Psicologia"))
+                .body("descricao", is("Cuidando bem dos profissionais de TI"));
     }
 
 }
