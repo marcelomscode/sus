@@ -54,6 +54,7 @@ public class CheckInOutController {
     public ResponseEntity<CheckInOutRequest> medicoRealizaCheckOut(@RequestBody CheckInOutRequest request) {
         var checkOut = CheckInOutMapper.toCheckInDomain(request);
 
+        //Apenas um teste
         checkOutUseCase.medicoRealizaCheckOut(checkOut);
 
         return ResponseEntity.ok(request);
