@@ -26,7 +26,7 @@ Projeto de pós-graduação em **arquitetura e desenvolvimento JAVA** pela FIAP 
 ## Estrutura do projeto
 
 ```markdown
-── src
+src
     ├── main
         ├── java
         │   └── fiap
@@ -34,40 +34,185 @@ Projeto de pós-graduação em **arquitetura e desenvolvimento JAVA** pela FIAP 
         │   │   └── sus
         │   │       ├── api
         │   │           ├── controllers
+        │   │           │   ├── CheckInOutController.java
+        │   │           │   ├── EspecialidadeController.java
+        │   │           │   └── UnidadeController.java
         │   │           ├── dto
+        │   │           │   ├── MedicoResponse.java
         │   │           │   ├── checkinout
+        │   │           │   │   ├── CheckInOutRequest.java
+        │   │           │   │   └── CheckInOutResponse.java
         │   │           │   ├── especialidade
+        │   │           │   │   ├── EspecialidadeRequest.java
+        │   │           │   │   ├── EspecialidadeResponse.java
+        │   │           │   │   ├── EspecialidadeUnidadeRequest.java
+        │   │           │   │   └── NovaEspecialidadeRequest.java
         │   │           │   └── unidade
+        │   │           │   │   ├── MedicosAtendendoUnidadeResponse.java
+        │   │           │   │   ├── UnidadeRequest.java
+        │   │           │   │   └── UnidadeResponse.java
         │   │           └── mappers
+        │   │           │   ├── CheckInOutMapper.java
+        │   │           │   ├── EspecialidadeDomainMapper.java
+        │   │           │   ├── EspecialidadeMapperOld.java
+        │   │           │   ├── MedicoMapper.java
+        │   │           │   └── UnidadeDomainMapper.java
         │   │       ├── application
         │   │           └── usecases
         │   │           │   ├── checkinout
+        │   │           │       ├── BuscaCheckInOutUseCase.java
+        │   │           │       ├── CheckInUseCase.java
+        │   │           │       └── CheckOutUseCase.java
         │   │           │   ├── especialidades
+        │   │           │       ├── AtualizaEspecialidadeUseCase.java
+        │   │           │       ├── BuscaEspecialidadesUseCase.java
+        │   │           │       └── SalvaEspecialidadeUseCase.java
         │   │           │   ├── medicos
+        │   │           │       └── BuscaInformacoesMedicoUseCase.java
         │   │           │   └── unidades
+        │   │           │       ├── AtualizaUnidadeUseCase.java
+        │   │           │       ├── BuscaMedicosAtendendoNaUnidadeUseCase.java
+        │   │           │       ├── BuscaUnidadesUseCase.java
+        │   │           │       ├── DeletaUnidadeUseCase.java
+        │   │           │       └── SalvaUnidadeUseCase.java
         │   │       ├── config
+        │   │           ├── CorsConfig.java
+        │   │           ├── DotenvInitializer.java
+        │   │           ├── OpenApiConfig.java
+        │   │           └── WebConfig.java
         │   │       ├── domain
         │   │           ├── exceptions
+        │   │           │   ├── CheckOutInException.java
+        │   │           │   ├── DominioException.java
+        │   │           │   ├── EspecialidadeException.java
+        │   │           │   ├── MedicoException.java
+        │   │           │   └── UnidadeException.java
         │   │           ├── model
+        │   │           │   ├── CheckInOutDomain.java
+        │   │           │   ├── EspecialidadesDomain.java
+        │   │           │   ├── MedicoDomain.java
+        │   │           │   └── UnidadeDomain.java
         │   │           └── repository
         │   │           │   ├── checkinout
+        │   │           │       ├── BuscaCheckInOutDomainRepository.java
+        │   │           │       ├── CheckInDomainRepository.java
+        │   │           │       └── CheckOutDomainRepository.java
         │   │           │   ├── especialidade
+        │   │           │       ├── BuscaEspecialidadesRepository.java
+        │   │           │       └── EspecialidadeRepository.java
         │   │           │   ├── medico
+        │   │           │       └── BuscaInformacoesMedicoRepository.java
         │   │           │   └── unidade
+        │   │           │       └── UnidadeDomainRepository.java
         │   │       ├── infrastructure
         │   │           ├── exceptionhandler
+        │   │           │   └── RestResponseEntityExceptionHandler.java
         │   │           ├── external
+        │   │           │   └── MedicoFeignClient.java
         │   │           ├── mappers
+        │   │           │   ├── CheckinOutPersistenceMapper.java
+        │   │           │   ├── EspecialidadePersistenceMapper.java
+        │   │           │   └── UnidadePersistenceMapper.java
         │   │           ├── persistence
+        │   │           │   ├── CheckInOutPersistence.java
+        │   │           │   ├── EspecialidadesPersistence.java
+        │   │           │   └── UnidadePersistence.java
         │   │           └── repository
         │   │           │   ├── impl
         │   │           │       ├── checkinout
+        │   │           │       │   ├── BuscaCheckInOutRepositoryImpl.java
+        │   │           │       │   ├── CheckInDomainRepositoryImpl.java
+        │   │           │       │   └── CheckOutDomainRepositoryImpl.java
         │   │           │       ├── especialidades
+        │   │           │       │   ├── BuscaEspecialidadesRepositoryImpl.java
+        │   │           │       │   └── EspecialidadesRepositoryImpl.java
         │   │           │       ├── medico
+        │   │           │       │   └── BuscaInformacoesMedicoRepositoryImpl.java
         │   │           │       └── unidade
+        │   │           │       │   └── UnidadeRepositoryImpl.java
         │   │           │   └── jpa
+        │   │           │       ├── CheckInOutJpaRepository.java
+        │   │           │       ├── EspecialidadesJpaRepository.java
+        │   │           │       └── UnidadeJpaRepository.java
         │   │       └── uteis
+        │   │           ├── DatasConversao.java
         │   │           └── variaveis
+        │   │               └── ConstantesGlobais.java
+        └── resources
+        │   ├── application-dev.properties
+        │   └── application.properties
+    └── test
+        ├── java
+            └── fiap
+            │   ├── Helper.java
+            │   ├── api
+            │       └── controllers
+            │       │   ├── checkinout
+            │       │       └── CheckInOutControllerIT.java
+            │       │   ├── especialidades
+            │       │       └── EspecialidadeControllerIT.java
+            │       │   └── unidades
+            │       │       └── UnidadeControllerTestIT.java
+            │   ├── application
+            │       └── usecase
+            │       │   ├── checkinout
+            │       │       ├── BuscaCheckInOutUseCaseTest.java
+            │       │       ├── CheckInUseCaseTest.java
+            │       │       └── CheckOutUseCaseTest.java
+            │       │   ├── especialidades
+            │       │       ├── integrados
+            │       │       │   ├── AtualizaEspecialidadeUseCaseIT.java
+            │       │       │   ├── BuscaEspecialidadesUseCaseTestIT.java
+            │       │       │   └── SalvaEspecialidadeUseCaseIT.java
+            │       │       └── unitarios
+            │       │       │   ├── AtualizaEspecialidadeUseCaseTest.java
+            │       │       │   ├── BuscaEspecialidadesUseCaseTest.java
+            │       │       │   └── SalvaEspecialidadeUseCaseTest.java
+            │       │   └── unidades
+            │       │       ├── SalvaUnidadeUseCaseITTest.java
+            │       │       └── SalvaUnidadeUseCaseTest.java
+            │   ├── bdd
+            │       ├── CucumberSpringConfiguration.java
+            │       └── CucumberTest.java
+            │   └── infrastructure
+            │       └── repository
+            │           ├── impl
+            │               ├── checkinout
+            │               │   ├── BuscaCheckInOutRepositoryImplTest.java
+            │               │   ├── CheckInDomainRepositoryImplTest.java
+            │               │   └── CheckOutDomainRepositoryImplTest.java
+            │               ├── especialidades
+            │               │   ├── BuscaEspecialidadesRepositoryImplTest.java
+            │               │   ├── BuscaEspecialidadesRepositoryImplTestIT.java
+            │               │   ├── EspecialidadesRepositoryImplTest.java
+            │               │   └── EspecialidadesRepositoryImplTestIT.java
+            │               ├── medico
+            │               │   └── BuscaInformacoesMedicoRepositoryImplTest.java
+            │               └── unidade
+            │               │   ├── UnidadeJpaRepositoryImplITTest.java
+            │               │   └── UnidadeJpaRepositoryImplTest.java
+            │           └── jpa
+            │               ├── checkinout
+            │                   ├── CheckInOutJpaRepositoryTest.java
+            │                   └── CheckInOutJpaRepositoryTestIT.java
+            │               ├── especialidades
+            │                   ├── EspecialidadesJpaRepositoryTest.java
+            │                   └── EspecialidadesJpaRepositoryTestIT.java
+            │               └── unidade
+            │                   ├── UnidadeJpaRepositoryIT.java
+            │                   └── UnidadeJpaRepositoryTest.java
+        └── resources
+            ├── application.properties
+            ├── db
+                └── test
+                │   ├── data.sql
+                │   └── schema.sql
+            ├── features
+                └── unidade.feature
+            ├── junit-platform.properties
+            └── schemas
+                ├── unidades.invalida.schema.json
+                └── unidades.schema.json
 ```
 
 ⚙️ Configurando Variáveis de Ambiente
