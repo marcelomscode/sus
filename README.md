@@ -219,7 +219,12 @@ src
 Deve-se criar um arquivo .env na raiz do projeto contendo as variáveis:
 | Variável | Descrição                 | Exemplo         |
 | --- |---------------------------|-----------------|
-| `DB_USER` | Usuário do servidor atals | `usuari123`     |
+| `PORT_SERVER` | Porta do servidor | `8032`     |
+| `DATA_BASE_URL` | url base da base de dados | `jdbc:postgresql:`     |
+| `USER_NAME` | Usuário da base de dados | `usuario`     |
+| `PASSWORD` | password | `usuari123`     |
+| `CLASS_NAME` | Class name do tipo da base de dados | `org.postgresql.Driver`     |
+| `HIBERNATE_DIALECT` | dialect do tipo da base de dados | `org.hibernate.dialect.PostgreSQLDialect`     |
 
 ## ▶️ Como Executar o Projeto
 
@@ -287,4 +292,3 @@ Contribuições são bem-vindas! Para contribuir com o projeto, por favor siga e
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
-
