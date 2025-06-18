@@ -1,0 +1,39 @@
+name: Deploy Produção
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    env:
+      CLASS_NAME: ${{ secrets.CLASS_NAME }}
+      DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
+      HIBERNATE_DIALECT: ${{ secrets.HIBERNATE_DIALECT }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      USER_NAME: ${{ secrets.USER_NAME }}
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Login no GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build da imagem
+        run: |
+          docker build \
+            --build-arg DB_URL=${{ secrets.DB_URL }} \
+            --build-arg API_KEY=${{ secrets.API_KEY }} \
+            -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
+
+      - name: Push da imagem
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/minha-app:latest

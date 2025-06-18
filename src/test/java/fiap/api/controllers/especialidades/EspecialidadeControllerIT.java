@@ -6,13 +6,16 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(SpringExtension.class)
 class EspecialidadeControllerIT {
 
 
@@ -54,6 +57,7 @@ class SalvarEspecialidade {
 
         given()
                 .when()
+                .header("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTc0NTA4NTE5NH0.LLyk40rWfjUgXsevvUT8B8NTWMLBCL41_6K2ZpbxLYpmFXCv3rS4IAPHVBeXIf_Ypp5J_9RLZw_cbw8uTTYaUMuqPyZyLEZuF5wRq-yuDk6HYtlDtodw0OIKLskEfU82xE9QkhIEjizZY5grDbwUQCxL5RgOybgmIqMbsmbsCenBgrkLaRLMytnt3vuenvmEYlMmvoQvSmraGimba5-q4sSGtmJuZ3p0ktM433YtwJSXFS9fOZ9Vd_wgrVID7csRKcipXya9B8W0r3Mt6vZ-yegq-Z6o8LiRVmWF-ZHnB62vXsRGO5QgQQsFGtnTItix_ziECwZy0BJlwP2V8Ifg4A")
                 .contentType("application/json")
                 .body(especialidade)
                 .post("especialidades")

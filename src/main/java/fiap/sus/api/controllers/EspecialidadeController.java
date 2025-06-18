@@ -51,7 +51,7 @@ public class EspecialidadeController {
     @Operation(summary = "Salvar nova especialidade.", description = "Opção para salvar uma nova Especialidade para ser usada nas Unidades.")
     @ApiResponse(responseCode = "200", description = "Especialidade salva com sucesso")
     @Schema(name = "NovaEspecialidadeRequest", implementation = NovaEspecialidadeRequest.class)
-    public ResponseEntity<String> salvaEspecialidade(@RequestBody NovaEspecialidadeRequest especialidadeRequest ) {
+    public ResponseEntity<String> salvaEspecialidade(@RequestBody NovaEspecialidadeRequest especialidadeRequest) {
 
         var especialidadeSalva = salvaEspecialidadeUseCase.save(EspecialidadeMapperOld.toDomainNovaEspecialidade(especialidadeRequest));
         log.info("FIM salva especialidade: {}", especialidadeSalva.getNome());
@@ -62,6 +62,7 @@ public class EspecialidadeController {
     @PutMapping
     @Operation(summary = "Atualiza uma especialidade cadastrada.", description = "Opção para atualizar uma especialidade.")
     @ApiResponse(responseCode = "200", description = "Especialidade atualizada com sucesso")
+    @ApiResponse(responseCode = "401", description = "Não Autorizado")
     @Schema(name = "EspecialidadeRequest", implementation = EspecialidadeRequest.class)
     public ResponseEntity<EspecialidadeResponse> atualizarEspecialidade(@RequestBody EspecialidadeRequest especialidadeRequest) {
         var especialidadeDomain = EspecialidadeMapperOld.toDomain(especialidadeRequest);
