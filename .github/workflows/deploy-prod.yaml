@@ -14,8 +14,8 @@ jobs:
       DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
       HIBERNATE_DIALECT: ${{ secrets.HIBERNATE_DIALECT }}
       PASSWORD: ${{ secrets.PASSWORD }}
-      PORT_SERVER: ${{ secrets.PORT_SERVER }}
       USER_NAME: ${{ secrets.USER_NAME }}
+      PORT_SERVER: ${{ secrets.PORT_SERVER }}
 
     steps:
       - name: Checkout do código
@@ -37,7 +37,7 @@ jobs:
       - name: Build com Maven
         run: mvn clean package -DskipTests
 
-      - name: Build da imagem
+      - name: Build da imagem Docker
         run: |
           docker build \
             --build-arg CLASS_NAME=$CLASS_NAME \
@@ -46,9 +46,7 @@ jobs:
             --build-arg PASSWORD=$PASSWORD \
             --build-arg USER_NAME=$USER_NAME \
             --build-arg PORT_SERVER=$PORT_SERVER \
-          
             -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
 
-      - name: Push da imagem
-        run: |
-          docker push ghcr.io/${{ github.repository_owner }}/minha-app:latest
+      - name: Push da imagem Docker
+        run: docker push ghcr.io/${{ github.repository_owner }}/minha-app:latest
