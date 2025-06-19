@@ -34,7 +34,7 @@ jobs:
 
       - name: Build da imagem Docker
         run: |
-          docker build -t $IMAGE_NAME \
+          docker build \
             --build-arg SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }} \
             --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} \
             --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} \
