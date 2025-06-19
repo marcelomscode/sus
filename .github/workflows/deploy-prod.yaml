@@ -14,6 +14,7 @@ jobs:
       DATA_BASE_URL: ${{ secrets.DATA_BASE_URL }}
       HIBERNATE_DIALECT: ${{ secrets.HIBERNATE_DIALECT }}
       PASSWORD: ${{ secrets.PASSWORD }}
+      PORT_SERVER: ${{ secrets.PORT_SERVER }}
       USER_NAME: ${{ secrets.USER_NAME }}
 
     steps:
@@ -39,12 +40,12 @@ jobs:
       - name: Build da imagem
         run: |
           docker build \
-            --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} \
-            --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} \
-            --build-arg HIBERNATE_DIALECT=${{ secrets.HIBERNATE_DIALECT }} \
-            --build-arg PASSWORD=${{ secrets.PASSWORD }} \
-            --build-arg PORT_SERVER=${{ secrets.PORT_SERVER }} \
-            --build-arg USER_NAME=${{ secrets.USER_NAME }} \
+            --build-arg CLASS_NAME=$CLASS_NAME \
+            --build-arg DATA_BASE_URL=$DATA_BASE_URL \
+            --build-arg HIBERNATE_DIALECT=$HIBERNATE_DIALECT \
+            --build-arg PASSWORD=$PASSWORD \
+            --build-arg USER_NAME=$USER_NAME \
+            --build-arg PORT_SERVER=$PORT_SERVER \
           
             -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
 
