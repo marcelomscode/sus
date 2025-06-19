@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minha-app
+  labels:
+    app: minha-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minha-app
+  template:
+    metadata:
+      labels:
+        app: minha-app
+    spec:
+      containers:
+        - name: minha-app
+          image: ghcr.io/marcelomscode/minha-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: CLASS_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: CLASS_NAME
+            - name: DATA_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: DATA_BASE_URL
+            - name: HIBERNATE_DIALECT
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: HIBERNATE_DIALECT
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: PASSWORD
+            - name: USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: USER_NAME
+            - name: PORT_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: minha-app-secrets
+                  key: PORT_SERVER
+      imagePullSecrets:
+        - name: ghcr-secret
