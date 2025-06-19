@@ -5,16 +5,23 @@ on:
     branches:
       - main
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/minha-app:latest
 
-    env:
-      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/minha-app:latest
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -22,54 +29,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Login no GHCR
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build com Maven
         run: mvn clean package -DskipTests
 
       - name: Build da imagem Docker
         run: |
-          docker build \
+          docker build -t $IMAGE_NAME \
             --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} \
             --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} \
             --build-arg HIBERNATE_DIALECT=${{ secrets.HIBERNATE_DIALECT }} \
             --build-arg PASSWORD=${{ secrets.PASSWORD }} \
             --build-arg PORT_SERVER=${{ secrets.PORT_SERVER }} \
             --build-arg USER_NAME=${{ secrets.USER_NAME }} \
-            -t $IMAGE_NAME .
+            .
 
       - name: Push da imagem
         run: docker push $IMAGE_NAME
-
-      - name: Gerar k8s/secrets.yaml
-        run: |
-          mkdir -p k8s
-          cat <<EOF > k8s/secrets.yaml
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: minha-app-secrets
-            namespace: default
-          type: Opaque
-          stringData:
-            CLASS_NAME: "${{ secrets.CLASS_NAME }}"
-            DATA_BASE_URL: "${{ secrets.DATA_BASE_URL }}"
-            HIBERNATE_DIALECT: "${{ secrets.HIBERNATE_DIALECT }}"
-            PASSWORD: "${{ secrets.PASSWORD }}"
-            USER_NAME: "${{ secrets.USER_NAME }}"
-            PORT_SERVER: "${{ secrets.PORT_SERVER }}"
-          EOF
-
-      - name: Aplicar arquivos no cluster (opcional)
-        # Esse passo exige que o GitHub Actions esteja com acesso ao cluster via kubeconfig (por ex., com secret KUBECONFIG).
-        run: |
-          kubectl apply -f k8s/secrets.yaml
-          kubectl apply -f k8s/deployment.yaml
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
