@@ -39,8 +39,13 @@ jobs:
       - name: Build da imagem
         run: |
           docker build \
-            --build-arg DB_URL=${{ secrets.DB_URL }} \
-            --build-arg API_KEY=${{ secrets.API_KEY }} \
+            --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} \
+            --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} \
+            --build-arg HIBERNATE_DIALECT=${{ secrets.HIBERNATE_DIALECT }} \
+            --build-arg PASSWORD=${{ secrets.PASSWORD }} \
+            --build-arg PORT_SERVER=${{ secrets.PORT_SERVER }} \
+            --build-arg USER_NAME=${{ secrets.USER_NAME }} \
+          
             -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
 
       - name: Push da imagem
