@@ -32,8 +32,26 @@ jobs:
       - name: Build com Maven
         run: mvn clean package -DskipTests
 
+      - name: Verificar ambiente
+        run: |
+          echo "Verificando Docker:"
+          docker --version
+          echo "Verificando diretório:"
+          ls -la
+          echo "Verificando Dockerfile:"
+          cat Dockerfile || echo "Sem Dockerfile"
+
       - name: Build da imagem Docker
-        run: docker buildx build --build-arg SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }} --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} --build-arg HIBERNATE_DIALECT=${{ secrets.HIBERNATE_DIALECT }} --build-arg PASSWORD=${{ secrets.PASSWORD }} --build-arg PORT_SERVER=${{ secrets.PORT_SERVER }} --build-arg USER_NAME=${{ secrets.USER_NAME }} -t ghcr.io/${{ github.repository_owner }}/minha-app:latest --push .
+        run: |
+          docker build \
+            --build-arg SPRING_PROFILES_ACTIVE="${{ secrets.SPRING_PROFILES_ACTIVE }}" \
+            --build-arg CLASS_NAME="${{ secrets.CLASS_NAME }}" \
+            --build-arg DATA_BASE_URL="${{ secrets.DATA_BASE_URL }}" \
+            --build-arg HIBERNATE_DIALECT="${{ secrets.HIBERNATE_DIALECT }}" \
+            --build-arg PASSWORD="${{ secrets.PASSWORD }}" \
+            --build-arg PORT_SERVER="${{ secrets.PORT_SERVER }}" \
+            --build-arg USER_NAME="${{ secrets.USER_NAME }}" \
+            -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
 
       - name: Push da imagem
         run: |
