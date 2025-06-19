@@ -34,7 +34,7 @@ jobs:
 
       - name: Build da imagem Docker
         run: |
-          docker build \
+          docker buildx build \
           --build-arg SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }} \
           --build-arg CLASS_NAME=${{ secrets.CLASS_NAME }} \
           --build-arg DATA_BASE_URL=${{ secrets.DATA_BASE_URL }} \
@@ -42,7 +42,8 @@ jobs:
           --build-arg PASSWORD=${{ secrets.PASSWORD }} \
           --build-arg PORT_SERVER=${{ secrets.PORT_SERVER }} \
           --build-arg USER_NAME=${{ secrets.USER_NAME }} \
-          -t ghcr.io/${{ github.repository_owner }}/minha-app:latest .
+          -t ghcr.io/${{ github.repository_owner }}/minha-app:latest \
+          --push .
 
       - name: Push da imagem
         run: |
